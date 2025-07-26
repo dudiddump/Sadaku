@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk atau Daftar - Sadaku</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Poppins', 'Inter', sans-serif; background-color: #FDFDFD; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        /* Color Palette */
+        .text-sadaku-dark { color: #1A2E35; }
+        .bg-sadaku-dark { background-color: #1A2E35; }
+        .text-sadaku-orange { color: #FF7B54; }
+        .bg-sadaku-orange { background-color: #FF7B54; }
+        .hover\:bg-sadaku-orange-dark:hover { background-color: #FF6A3D; }
+        .border-sadaku-orange { border-color: #FF7B54; }
+        .ring-sadaku-orange:focus { --tw-ring-color: #FF7B54; }
+
+        .font-logo-sadaku { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 2.5rem; letter-spacing: 0.5px; }
+        
+        .form-input:focus {
+            border-color: #FF7B54;
+            box-shadow: 0 0 0 2px rgba(255, 123, 84, 0.3);
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Custom Radio Button Styling */
+        .user-type-radio:checked + label {
+            border-color: #FF7B54;
+            background-color: #FFF7F5;
+            color: #1A2E35;
+            box-shadow: 0 4px 6px -1px rgba(255, 123, 84, 0.2), 0 2px 4px -1px rgba(255, 123, 84, 0.12);
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fadeIn { animation: fadeIn 0.5s ease-out forwards; }
+    </style>
+</head>
+<body>
+    <div class="flex min-h-screen">
+        <!-- Left Column (Branding) -->
+        <div class="hidden md:flex w-1/2 bg-sadaku-dark items-center justify-center p-12 text-white relative overflow-hidden">
+            <div class="absolute bg-sadaku-orange w-64 h-64 rounded-full -top-16 -left-20 opacity-20"></div>
+            <div class="absolute bg-sadaku-orange w-96 h-96 rounded-full -bottom-24 -right-20 opacity-20"></div>
+            <div class="z-10 text-center">
+                <a href="index.html" class="font-logo-sadaku text-white mb-6 block">Sadaku</a>
+                <h1 class="text-4xl font-bold mb-4 leading-tight">Satu Langkah Lagi Menuju Gebrakanmu.</h1>
+                <p class="font-inter text-lg text-gray-300 max-w-md mx-auto">
+                    Tempat di mana ide-ide brilian mahasiswa bertemu dukungan nyata untuk menciptakan dampak positif.
+                </p>
+                <img src="https://placehold.co/400x300/FFFFFF/1A2E35?text=🚀&font=notoemoji" alt="[Gambar Roket]" class="mx-auto mt-10 w-48 h-48 opacity-80" onerror="this.style.display='none'">
+            </div>
+        </div>
+
+        <!-- Right Column (Forms) -->
+        <div class="w-full md:w-1/2 flex items-center justify-center p-6 sm:p-12 bg-white">
+            <div class="w-full max-w-md">
+
+                <!-- Login Form -->
+                <div id="login-form" class="animate-fadeIn">
+                    <h2 class="text-3xl font-bold text-sadaku-dark mb-2">Selamat Datang Kembali! 👋</h2>
+                    <p class="font-inter text-gray-600 mb-6">Masuk untuk melanjutkan gebrakanmu.</p>
+                    <form id="form-login-element">
+                        <!-- REVISI 2: Switch Login -->
+                        <div class="mb-5">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Login sebagai:</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <input type="radio" name="login-user-type" id="login-type-mahasiswa" value="mahasiswa" class="hidden user-type-radio" checked>
+                                    <label for="login-type-mahasiswa" class="flex items-center justify-center p-3 border-2 border-gray-300 rounded-lg cursor-pointer transition-all duration-200">
+                                        <i class="fas fa-user-graduate text-xl mr-2"></i>
+                                        <span class="font-semibold text-sm">Mahasiswa</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="login-user-type" id="login-type-sponsor" value="sponsor" class="hidden user-type-radio">
+                                    <label for="login-type-sponsor" class="flex items-center justify-center p-3 border-2 border-gray-300 rounded-lg cursor-pointer transition-all duration-200">
+                                        <i class="fas fa-building text-xl mr-2"></i>
+                                        <span class="font-semibold text-sm">Sponsor</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="login-email" class="block text-sm font-semibold text-gray-700 mb-1.5">Alamat Email</label>
+                            <input type="email" id="login-email" required placeholder="contoh@email.com" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none">
+                        </div>
+                        <div class="mb-6">
+                             <div class="flex justify-between items-center mb-1.5">
+                                <label for="login-password" class="text-sm font-semibold text-gray-700">Password</label>
+                                <!-- REVISI 3: Tautan diubah untuk memicu form reset -->
+                                <a href="#" id="forgot-password-link" class="text-sm font-semibold text-sadaku-orange hover:underline">Lupa Password?</a>
+                            </div>
+                            <div class="relative">
+                                <input type="password" id="login-password" required placeholder="Masukkan passwordmu" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none">
+                                <button type="button" class="absolute inset-y-0 right-0 px-4 text-gray-500" onclick="togglePassword('login-password')"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-sadaku-orange hover:bg-sadaku-orange-dark text-white font-bold py-3.5 px-4 rounded-lg shadow-lg hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
+                            Masuk Sekarang <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </form>
+                    <p class="font-inter text-center text-sm text-gray-600 mt-8">Belum punya akun? <a href="#" id="show-signup" class="font-bold text-sadaku-orange hover:underline">Daftar di sini!</a></p>
+                </div>
+
+                <!-- Signup Form -->
+                <div id="signup-form" class="hidden animate-fadeIn">
+                    <h2 class="text-3xl font-bold text-sadaku-dark mb-2">Yuk, Bergabung! 🚀</h2>
+                    <p class="font-inter text-gray-600 mb-8">Pilih peranmu dan mulai ciptakan dampak.</p>
+                    <form id="form-signup-element">
+                         <div class="mb-5">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Saya mendaftar sebagai:</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <input type="radio" name="signup-user-type" id="signup-type-mahasiswa" value="mahasiswa" class="hidden user-type-radio" checked>
+                                    <label for="signup-type-mahasiswa" class="flex flex-col items-center justify-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer transition-all duration-200">
+                                        <i class="fas fa-user-graduate text-2xl mb-2"></i>
+                                        <span class="font-semibold text-sm">Mahasiswa</span>
+                                    </label>
+                                </div>
+                                <div>
+                                     <!-- REVISI 1: Ubah Perusahaan menjadi Sponsor -->
+                                    <input type="radio" name="signup-user-type" id="signup-type-sponsor" value="sponsor" class="hidden user-type-radio">
+                                    <label for="signup-type-sponsor" class="flex flex-col items-center justify-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer transition-all duration-200">
+                                        <i class="fas fa-building text-2xl mb-2"></i>
+                                        <span class="font-semibold text-sm">Sponsor</span>
+                                    </label>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="mb-4">
+                            <label for="signup-name" class="block text-sm font-semibold text-gray-700 mb-1.5">Nama Lengkap / Nama Sponsor</label>
+                            <input type="text" id="signup-name" required placeholder="Masukkan nama" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none">
+                        </div>
+                        <div class="mb-4">
+                            <label for="signup-email" class="block text-sm font-semibold text-gray-700 mb-1.5">Alamat Email</label>
+                            <input type="email" id="signup-email" required placeholder="contoh@email.com" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none">
+                        </div>
+                        <div class="mb-4">
+                            <label for="signup-password" class="block text-sm font-semibold text-gray-700 mb-1.5">Buat Password</label>
+                            <div class="relative">
+                                <input type="password" id="signup-password" required minlength="8" placeholder="Minimal 8 karakter" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none">
+                                <button type="button" class="absolute inset-y-0 right-0 px-4 text-gray-500" onclick="togglePassword('signup-password')"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="signup-confirm-password" class="block text-sm font-semibold text-gray-700 mb-1.5">Konfirmasi Password</label>
+                            <div class="relative">
+                                <input type="password" id="signup-confirm-password" required placeholder="Ketik ulang passwordmu" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-sadaku-orange hover:bg-sadaku-orange-dark text-white font-bold py-3.5 px-4 rounded-lg shadow-lg hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
+                            Buat Akun Sekarang
+                        </button>
+                    </form>
+                    <p class="font-inter text-center text-sm text-gray-600 mt-8">Sudah punya akun? <a href="#" id="show-login" class="font-bold text-sadaku-orange hover:underline">Masuk di sini</a></p>
+                </div>
+
+                <!-- REVISI 3: Form Reset Password -->
+                <div id="reset-form" class="hidden animate-fadeIn">
+                    <h2 class="text-3xl font-bold text-sadaku-dark mb-2">Lupa Password?</h2>
+                    <p class="font-inter text-gray-600 mb-8">Jangan khawatir. Masukkan email Anda dan kami akan kirimkan tautan untuk mengatur ulang password.</p>
+                    <form id="form-reset-element">
+                        <div class="mb-6">
+                            <label for="reset-email" class="block text-sm font-semibold text-gray-700 mb-1.5">Alamat Email Terdaftar</label>
+                            <input type="email" id="reset-email" required placeholder="contoh@email.com" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none">
+                        </div>
+                        <button type="submit" class="w-full bg-sadaku-orange hover:bg-sadaku-orange-dark text-white font-bold py-3.5 px-4 rounded-lg shadow-lg hover:shadow-md transition-all duration-300">
+                           Kirim Link Reset
+                        </button>
+                    </form>
+                    <p class="font-inter text-center text-sm text-gray-600 mt-8">Ingat passwordmu? <a href="#" id="back-to-login" class="font-bold text-sadaku-orange hover:underline">Kembali ke Login</a></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Modal untuk Notifikasi -->
+    <div id="custom-alert-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 text-center max-w-sm mx-auto transform transition-all scale-95 opacity-0" id="modal-content">
+            <div id="modal-icon" class="text-5xl mb-4"></div>
+            <h3 id="modal-title" class="text-2xl font-bold text-sadaku-dark mb-2"></h3>
+            <p id="modal-message" class="text-gray-600 font-inter mb-6"></p>
+            <button id="modal-close-btn" class="bg-sadaku-dark hover:bg-gray-800 text-white font-bold py-2.5 px-8 rounded-lg transition-all duration-300">
+                Mengerti
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- Element Selectors ---
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const resetForm = document.getElementById('reset-form');
+        
+        const showSignupLink = document.getElementById('show-signup');
+        const showLoginLink = document.getElementById('show-login');
+        const forgotPasswordLink = document.getElementById('forgot-password-link');
+        const backToLoginLink = document.getElementById('back-to-login');
+
+        // --- Form Toggling Logic ---
+        function showForm(formToShow) {
+            loginForm.classList.add('hidden');
+            signupForm.classList.add('hidden');
+            resetForm.classList.add('hidden');
+            formToShow.classList.remove('hidden');
+        }
+
+        showSignupLink.addEventListener('click', (e) => { e.preventDefault(); showForm(signupForm); });
+        showLoginLink.addEventListener('click', (e) => { e.preventDefault(); showForm(loginForm); });
+        forgotPasswordLink.addEventListener('click', (e) => { e.preventDefault(); showForm(resetForm); });
+        backToLoginLink.addEventListener('click', (e) => { e.preventDefault(); showForm(loginForm); });
+
+        // --- Password Toggle Logic ---
+        function togglePassword(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            const icon = passwordInput.nextElementSibling.querySelector('i');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // --- Custom Alert Modal Logic ---
+        const modal = document.getElementById('custom-alert-modal');
+        const modalContent = document.getElementById('modal-content');
+        const modalIcon = document.getElementById('modal-icon');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMessage = document.getElementById('modal-message');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+
+        function showModal(type, title, message) {
+            if (type === 'success') {
+                modalIcon.innerHTML = `<i class="fas fa-check-circle text-green-500"></i>`;
+            } else {
+                modalIcon.innerHTML = `<i class="fas fa-exclamation-triangle text-red-500"></i>`;
+            }
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            modal.classList.remove('hidden');
+            setTimeout(() => { modalContent.classList.remove('scale-95', 'opacity-0'); }, 10);
+        }
+        
+        modalCloseBtn.addEventListener('click', () => {
+             modalContent.classList.add('scale-95', 'opacity-0');
+             setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        });
+
+        // --- Form Submission Logic (Simulasi) ---
+        document.getElementById('form-login-element').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const loginType = document.querySelector('input[name="login-user-type"]:checked').value;
+            console.log(`Simulasi: Login berhasil sebagai ${loginType}!`);
+            window.location.href = './dashboard.html';
+        });
+
+        document.getElementById('form-signup-element').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+
+            if (password !== confirmPassword) {
+                showModal('error', 'Oops!', 'Password dan konfirmasi password tidak cocok. Silakan coba lagi.');
+                return;
+            }
+
+            const userType = document.querySelector('input[name="signup-user-type"]:checked').value;
+            console.log(`Simulasi: Registrasi berhasil sebagai ${userType}`);
+            showModal('success', 'Hore, Berhasil!', 'Akunmu berhasil dibuat. Silakan masuk untuk melanjutkan.');
+            
+            showForm(loginForm);
+            e.target.reset();
+        });
+
+        document.getElementById('form-reset-element').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('reset-email').value;
+            console.log(`Simulasi: Link reset dikirim ke ${email}`);
+            showModal('success', 'Terkirim!', `Jika email ${email} terdaftar, kami telah mengirimkan tautan untuk mengatur ulang password Anda.`);
+            showForm(loginForm);
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
