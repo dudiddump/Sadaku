@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sadaku</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --sadaku-dark: #1A2E35;
+            --sadaku-orange: #FF7B54;
+        }
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            background-color: #F4F7F6;
+        }
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+        .bg-sadaku-dark { background-color: var(--sadaku-dark); }
+        .text-sadaku-orange { color: var(--sadaku-orange); }
+        .bg-sadaku-orange { background-color: var(--sadaku-orange); }
+        .hover\:bg-sadaku-orange-dark:hover { background-color: #FF6A3D; }
+        .border-sadaku-orange { border-color: var(--sadaku-orange); }
+        .ring-sadaku-orange:focus { --tw-ring-color: var(--sadaku-orange); }
+
+        .sidebar-link.active {
+            background-color: var(--sadaku-orange);
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 123, 84, 0.3);
+            transform: translateX(5px);
+        }
+        .sidebar-link.active i {
+            color: white;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .main-view { display: none; }
+        .main-view.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .peer:checked ~ .peer-checked\:translate-x-full { transform: translateX(100%); }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="flex h-screen bg-gray-100">
+        <!-- Sidebar -->
+        <aside class="w-64 flex-shrink-0 bg-sadaku-dark text-gray-300 flex flex-col p-4">
+            <a href="index.html" class="font-poppins font-extrabold text-2xl text-white text-center py-4 border-b border-gray-700">Sadaku</a>
+            <div class="flex items-center mt-6 p-2 rounded-lg">
+                <img id="user-avatar" src="https://placehold.co/40x40/FF7B54/FFFFFF?text=I" alt="Avatar Pengguna" class="w-10 h-10 rounded-full mr-3 border-2 border-sadaku-orange">
+                <div>
+                    <p id="user-name" class="font-bold text-white">Ithayoo</p>
+                    <p id="user-role" class="text-xs text-gray-400">Mahasiswa</p>
+                </div>
+            </div>
+            <nav id="sidebar-nav" class="mt-8 flex-1 space-y-2">
+                <a href="#" data-target="dashboard-view" class="sidebar-link active flex items-center py-2.5 px-4 rounded-lg"><i class="fas fa-tachometer-alt w-6 text-gray-400"></i><span class="ml-3">Dashboard</span></a>
+                <a href="#" data-target="proposals-view" id="proposal-link" class="sidebar-link flex items-center py-2.5 px-4 rounded-lg"><i class="fas fa-file-alt w-6 text-gray-400"></i><span id="proposal-link-text" class="ml-3">Proposal Saya</span></a>
+                <a href="#" data-target="messages-view" class="sidebar-link flex items-center py-2.5 px-4 rounded-lg"><i class="fas fa-envelope w-6 text-gray-400"></i><span class="ml-3">Pesan</span></a>
+                <a href="#" data-target="profile-view" class="sidebar-link flex items-center py-2.5 px-4 rounded-lg"><i class="fas fa-user-circle w-6 text-gray-400"></i><span class="ml-3">Profil</span></a>
+            </nav>
+            <div class="mt-auto">
+                <a href="index.html" class="sidebar-link flex items-center w-full py-2.5 px-4 rounded-lg hover:bg-red-500 hover:text-white"><i class="fas fa-sign-out-alt w-6 text-gray-400"></i><span class="ml-3">Logout</span></a>
+            </div>
+        </aside>
+
+        <!-- Main content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <header class="bg-white shadow-sm p-4">
+                <div class="flex justify-between items-center">
+                    <h1 id="page-title" class="text-2xl font-bold text-sadaku-dark font-poppins">Dashboard</h1>
+                    <div class="flex items-center">
+                        <span class="mr-3 text-sm font-semibold text-gray-700">Simulasi Tampilan:</span>
+                        <label for="role-toggle" class="flex items-center cursor-pointer">
+                            <span class="mr-2 text-sm">Mahasiswa</span>
+                            <div class="relative">
+                                <input type="checkbox" id="role-toggle" class="sr-only peer">
+                                <div class="w-12 h-6 bg-gray-400 rounded-full peer-checked:bg-sadaku-dark"></div>
+                                <div class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 ease-in-out peer-checked:translate-x-6 peer-checked:bg-sadaku-orange"></div>
+                            </div>
+                            <span class="ml-2 text-sm">Sponsor</span>
+                        </label>
+                    </div>
+                </div>
+            </header>
+            
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+                <div id="main-content-area">
+                    <!-- Dashboard View -->
+                    <div id="dashboard-view" class="main-view active">
+                        <!-- Dashboard untuk Mahasiswa -->
+                        <div id="mahasiswa-dashboard">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                                <div class="bg-white p-5 rounded-lg shadow flex items-center"><i class="fas fa-dollar-sign fa-3x text-green-500"></i><div class="ml-4"><p class="text-gray-500 text-sm">Total Dana Terkumpul</p><p class="text-2xl font-bold text-sadaku-dark">Rp 8.550.000</p></div></div>
+                                <div class="bg-white p-5 rounded-lg shadow flex items-center"><i class="fas fa-file-signature fa-3x text-blue-500"></i><div class="ml-4"><p class="text-gray-500 text-sm">Proposal Aktif</p><p class="text-2xl font-bold text-sadaku-dark">2</p></div></div>
+                                <div class="bg-white p-5 rounded-lg shadow flex items-center"><i class="fas fa-check-circle fa-3x text-purple-500"></i><div class="ml-4"><p class="text-gray-500 text-sm">Event Selesai</p><p class="text-2xl font-bold text-sadaku-dark">1</p></div></div>
+                                <a href="submit-proposal.html" class="bg-sadaku-orange hover:bg-sadaku-orange-dark text-white p-5 rounded-lg shadow flex items-center justify-center transition duration-300 transform hover:-translate-y-1"><i class="fas fa-plus-circle fa-3x"></i><div class="ml-4"><p class="text-xl font-bold">Ajukan Proposal Baru</p></div></a>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="lg:col-span-2 space-y-6">
+                                    <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-poppins font-bold text-lg text-sadaku-dark mb-4">Ringkasan Status Proposal</h3><div class="space-y-4"><div class="border rounded-lg p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"><div><p class="font-bold text-sadaku-dark">Tech Fest 2025: Innovate-a-thon</p><p class="text-sm text-gray-500 mt-1">Status: <span class="font-semibold text-blue-600">Disetujui, Pendanaan Berjalan</span></p><div class="w-full bg-gray-200 rounded-full h-2.5 mt-2"><div class="bg-sadaku-orange h-2.5 rounded-full" style="width: 65%"></div></div><p class="text-xs text-gray-500 mt-1">Rp 6.500.000 / Rp 10.000.000</p></div><a href="event-detail.html" class="bg-gray-100 hover:bg-gray-200 text-sm text-sadaku-dark font-semibold py-2 px-4 rounded-lg transition whitespace-nowrap">Lihat Detail</a></div><div class="border rounded-lg p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"><div><p class="font-bold text-sadaku-dark">Seminar Kewirausahaan Nasional</p><p class="text-sm text-gray-500 mt-1">Status: <span class="font-semibold text-yellow-600">Ditinjau oleh 2 sponsor</span></p><div class="w-full bg-gray-200 rounded-full h-2.5 mt-2"><div class="bg-yellow-400 h-2.5 rounded-full" style="width: 0%"></div></div><p class="text-xs text-gray-500 mt-1">Rp 0 / Rp 5.000.000</p></div><a href="#" class="bg-gray-100 hover:bg-gray-200 text-sm text-sadaku-dark font-semibold py-2 px-4 rounded-lg transition whitespace-nowrap">Lihat Detail</a></div></div></div>
+                                </div>
+                                <div class="lg:col-span-1"><div class="bg-white p-6 rounded-lg shadow"><h3 class="font-poppins font-bold text-lg text-sadaku-dark mb-4">Tugas & Notifikasi</h3><div class="divide-y divide-gray-200"><div class="py-3 flex items-start gap-3"><i class="fas fa-envelope text-blue-500 mt-1"></i><div><p class="text-sm">Anda punya <span class="font-bold">1 pesan baru</span> dari PT CPI Racing Drift.</p><a href="#" class="text-xs text-sadaku-orange hover:underline">Balas sekarang</a></div></div><div class="py-3 flex items-start gap-3"><i class="fas fa-file-import text-yellow-500 mt-1"></i><div><p class="text-sm">Sponsor meminta <span class="font-bold">revisi proposal</span> untuk 'Tech Fest 2025'.</p><a href="#" class="text-xs text-sadaku-orange hover:underline">Lihat detail</a></div></div><div class="py-3 flex items-start gap-3"><i class="fas fa-calendar-times text-red-500 mt-1"></i><div><p class="text-sm">Batas waktu laporan 'Baksos Ceria' <span class="font-bold">tinggal 3 hari lagi.</span></p><a href="#" class="text-xs text-sadaku-orange hover:underline">Upload laporan</a></div></div></div></div></div>
+                            </div>
+                        </div>
+                        <!-- Dashboard untuk Sponsor -->
+                        <div id="sponsor-dashboard" class="hidden">
+                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                                <div class="bg-white p-5 rounded-lg shadow flex items-center"><i class="fas fa-hand-holding-heart fa-3x text-green-500"></i><div class="ml-4"><p class="text-gray-500 text-sm">Total Dana Disalurkan</p><p class="text-2xl font-bold text-sadaku-dark">Rp 25.000.000</p></div></div>
+                                <div class="bg-white p-5 rounded-lg shadow flex items-center"><i class="fas fa-calendar-check fa-3x text-blue-500"></i><div class="ml-4"><p class="text-gray-500 text-sm">Event Didukung</p><p class="text-2xl font-bold text-sadaku-dark">5</p></div></div>
+                                <a href="showcase.html" class="bg-sadaku-dark hover:bg-gray-800 text-white p-5 rounded-lg shadow flex items-center justify-center transition duration-300 transform hover:-translate-y-1"><i class="fas fa-search-dollar fa-3x"></i><div class="ml-4"><p class="text-xl font-bold">Jelajahi Event Baru</p></div></a>
+                            </div>
+                             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div class="lg:col-span-2 space-y-6">
+                                    <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-poppins font-bold text-lg text-sadaku-dark mb-4">Proposal Perlu Tinjauan (3)</h3><div class="space-y-3"><div class="border rounded-lg p-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3"><div><p class="font-bold text-sadaku-dark">Workshop UI/UX Design</p><p class="text-sm text-gray-500">Oleh: Komunitas Desain Grafis</p></div><div class="flex items-center gap-2"><button class="bg-green-500 hover:bg-green-600 text-white text-sm font-bold py-1 px-3 rounded">Tinjau</button><button class="bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-1 px-3 rounded">Tolak</button></div></div><div class="border rounded-lg p-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3"><div><p class="font-bold text-sadaku-dark">Campus Fun Run 5K</p><p class="text-sm text-gray-500">Oleh: UKM Lari</p></div><div class="flex items-center gap-2"><button class="bg-green-500 hover:bg-green-600 text-white text-sm font-bold py-1 px-3 rounded">Tinjau</button><button class="bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-1 px-3 rounded">Tolak</button></div></div></div></div>
+                                    <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-poppins font-bold text-lg text-sadaku-dark mb-4">Perkembangan Event Didukung</h3><div class="space-y-4"><div class="border rounded-lg p-4"><p class="font-bold text-sadaku-dark">Tech Fest 2025</p><div class="w-full bg-gray-200 rounded-full h-2.5 mt-2"><div class="bg-sadaku-orange h-2.5 rounded-full" style="width: 65%"></div></div><p class="text-xs text-gray-500 mt-1">Progres Pendanaan: 65%</p><div class="mt-2"><a href="#" class="text-sm font-semibold text-sadaku-orange hover:underline">Kirim Pesan ke Panitia &rarr;</a></div></div></div></div>
+                                </div>
+                                <div class="lg:col-span-1"><div class="bg-white p-6 rounded-lg shadow"><h3 class="font-poppins font-bold text-lg text-sadaku-dark mb-4">Rekomendasi Untuk Anda</h3><div class="divide-y divide-gray-200"><div class="py-3"><span class="text-xs bg-blue-100 text-blue-600 font-semibold px-2 py-0.5 rounded-full">TEKNOLOGI</span><p class="font-semibold text-gray-800 mt-1">Hackathon Nasional: Future Tech</p><p class="text-sm text-gray-500">Cyber University</p><a href="#" class="text-xs text-sadaku-orange hover:underline mt-1 inline-block">Lihat detail</a></div><div class="py-3"><span class="text-xs bg-red-100 text-red-600 font-semibold px-2 py-0.5 rounded-full">OLAHRAGA</span><p class="font-semibold text-gray-800 mt-1">Turnamen E-Sports Antar Kampus</p><p class="text-sm text-gray-500">Universitas Persatuan</p><a href="#" class="text-xs text-sadaku-orange hover:underline mt-1 inline-block">Lihat detail</a></div></div></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- KONTEN DIKEMBALIKAN: Proposals View -->
+                    <div id="proposals-view" class="main-view hidden bg-white p-6 rounded-lg shadow">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 id="proposals-title" class="text-xl font-bold text-sadaku-dark font-poppins">Daftar Semua Proposal Saya</h2>
+                            <a href="submit-proposal.html" id="add-proposal-button" class="bg-sadaku-orange hover:bg-sadaku-orange-dark text-white font-bold py-2 px-4 rounded-lg text-sm inline-flex items-center">
+                                <i class="fas fa-plus mr-2"></i>Tambah Proposal
+                            </a>
+                        </div>
+                         <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-500">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50"><tr><th scope="col" class="px-6 py-3">Nama Event</th><th scope="col" class="px-6 py-3">Status</th><th scope="col" class="px-6 py-3">Dana Terkumpul</th><th scope="col" class="px-6 py-3">Aksi</th></tr></thead>
+                                <tbody>
+                                    <tr class="bg-white border-b hover:bg-gray-50"><td class="px-6 py-4 font-medium text-gray-900">Tech Fest 2025: Innovate-a-thon</td><td class="px-6 py-4"><span class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Disetujui</span></td><td class="px-6 py-4">65% (Rp 6,5jt / 10jt)</td><td class="px-6 py-4"><a href="event-detail.html" class="font-medium text-sadaku-orange hover:underline">Lihat Detail</a></td></tr>
+                                    <tr class="bg-white border-b hover:bg-gray-50"><td class="px-6 py-4 font-medium text-gray-900">Seminar Kewirausahaan Nasional</td><td class="px-6 py-4"><span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Ditinjau</span></td><td class="px-6 py-4">0% (Rp 0 / 5jt)</td><td class="px-6 py-4"><a href="#" class="font-medium text-gray-500 hover:underline">Edit</a></td></tr>
+                                    <tr class="bg-white border-b hover:bg-gray-50"><td class="px-6 py-4 font-medium text-gray-900">Pameran Seni 'VOICES'</td><td class="px-6 py-4"><span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Ditolak</span></td><td class="px-6 py-4">-</td><td class="px-6 py-4"><a href="#" class="font-medium text-gray-500 hover:underline">Lihat Alasan</a></td></tr>
+                                    <tr class="bg-white hover:bg-gray-50"><td class="px-6 py-4 font-medium text-gray-900">Bakti Sosial Ceria</td><td class="px-6 py-4"><span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Selesai</span></td><td class="px-6 py-4">100% (Rp 3jt / 3jt)</td><td class="px-6 py-4"><a href="#" class="font-medium text-sadaku-orange hover:underline">Lihat Laporan</a></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- KONTEN DIKEMBALIKAN: Messages View -->
+                    <div id="messages-view" class="main-view hidden bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-bold text-sadaku-dark mb-4 font-poppins">Pesan Masuk</h2>
+                        <div class="border rounded-lg overflow-hidden"><div class="divide-y"><a href="messages.html" class="flex items-center p-4 hover:bg-gray-50 transition duration-200 cursor-pointer"><img src="https://placehold.co/50x50/1A2E35/FFFFFF?text=C" class="w-12 h-12 rounded-full mr-4" alt="[Logo PT CPI]"><div class="flex-1"><div class="flex justify-between items-center"><p class="font-bold text-sadaku-dark">PT CPI Racing Drift</p><span class="text-xs text-gray-500">Kemarin</span></div><p class="text-sm text-gray-600 truncate">Baik, kami tertarik dengan proposalnya. Mohon kirimkan detail lebih lanjut...</p></div><span class="w-3 h-3 bg-sadaku-orange rounded-full ml-4" title="Pesan belum dibaca"></span></a><a href="messages.html" class="flex items-center p-4 hover:bg-gray-50 transition duration-200 cursor-pointer"><img src="https://placehold.co/50x50/EC4899/FFFFFF?text=B" class="w-12 h-12 rounded-full mr-4" alt="[Logo BEM FSRD]"><div class="flex-1"><div class="flex justify-between items-center"><p class="font-bold text-sadaku-dark">BEM FSRD</p><span class="text-xs text-gray-500">2 hari lalu</span></div><p class="text-sm text-gray-600 truncate">Terima kasih banyak atas dukungannya untuk acara kami!</p></div></a><a href="messages.html" class="flex items-center p-4 hover:bg-gray-50 transition duration-200 cursor-pointer"><img src="https://placehold.co/50x50/3B82F6/FFFFFF?text=A" class="w-12 h-12 rounded-full mr-4" alt="[Logo Admin Sadaku]"><div class="flex-1"><div class="flex justify-between items-center"><p class="font-bold text-sadaku-dark">Admin Sadaku</p><span class="text-xs text-gray-500">1 minggu lalu</span></div><p class="text-sm text-gray-600 truncate">Selamat datang di Sadaku! Akun Anda telah berhasil diverifikasi.</p></div></a></div></div>
+                    </div>
+                    
+                    <!-- KONTEN DIKEMBALIKAN: Profile View -->
+                    <div id="profile-view" class="main-view hidden bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-bold text-sadaku-dark mb-6 font-poppins">Edit Profil</h2>
+                        <form class="space-y-6 max-w-lg"><div class="flex items-center space-x-4"><img id="profile-picture-preview" src="https://placehold.co/80x80/FF7B54/FFFFFF?text=I" alt="[Foto Profil]" class="w-20 h-20 rounded-full object-cover"><div><label for="profile-picture-upload" class="cursor-pointer bg-gray-200 hover:bg-gray-300 text-sadaku-dark font-bold py-2 px-4 rounded-lg text-sm">Ubah Foto</label><input type="file" id="profile-picture-upload" class="hidden"></div></div><div><label for="profile-name-input" class="block text-sm font-medium text-gray-700">Nama Lengkap / Organisasi</label><input type="text" id="profile-name-input" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2 focus:ring-sadaku-orange focus:border-sadaku-orange"></div><div><label for="profile-university-input" class="block text-sm font-medium text-gray-700">Universitas / Industri</label><input type="text" id="profile-university-input" value="Cyber University" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2 focus:ring-sadaku-orange focus:border-sadaku-orange"></div><div><label class="block text-sm font-medium text-gray-700">Email</label><input type="email" value="ithayoo@email.com" disabled class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2 bg-gray-100 cursor-not-allowed"></div><div><label for="profile-phone-input" class="block text-sm font-medium text-gray-700">Nomor Telepon</label><input type="tel" id="profile-phone-input" value="081234567890" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2 focus:ring-sadaku-orange focus:border-sadaku-orange"></div><div><label for="profile-bio-input" class="block text-sm font-medium text-gray-700">Bio Singkat</label><textarea id="profile-bio-input" rows="3" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2 focus:ring-sadaku-orange focus:border-sadaku-orange" placeholder="Ceritakan sedikit tentang dirimu atau organisasimu..."></textarea></div><div><button type="submit" class="bg-sadaku-orange hover:bg-sadaku-orange-dark text-white font-bold py-2.5 px-6 rounded-lg transition duration-300">Simpan Perubahan</button></div></form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Element Selectors ---
+        const roleToggle = document.getElementById('role-toggle');
+        const userAvatar = document.getElementById('user-avatar');
+        const userName = document.getElementById('user-name');
+        const userRole = document.getElementById('user-role');
+        const proposalLinkText = document.getElementById('proposal-link-text');
+        const pageTitle = document.getElementById('page-title');
+        const sidebarNav = document.getElementById('sidebar-nav');
+        const mainContentArea = document.getElementById('main-content-area');
+        const mahasiswaDashboard = document.getElementById('mahasiswa-dashboard');
+        const sponsorDashboard = document.getElementById('sponsor-dashboard');
+
+        // --- Internal Navigation Logic ---
+        sidebarNav.addEventListener('click', (e) => {
+            const link = e.target.closest('.sidebar-link');
+            if (!link || !link.dataset.target) return;
+            e.preventDefault();
+
+            sidebarNav.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            pageTitle.textContent = link.querySelector('span').textContent;
+
+            mainContentArea.querySelectorAll('.main-view').forEach(view => {
+                view.classList.remove('active');
+                view.classList.add('hidden');
+            });
+
+            const targetView = document.getElementById(link.dataset.target);
+            if (targetView) {
+                targetView.classList.remove('hidden');
+                setTimeout(() => { targetView.classList.add('active'); }, 10);
+            }
+        });
+
+        // --- Role Switcher Logic ---
+        function updateDashboardView(isSponsor) {
+            // Select elements within the function to ensure they are available when called
+            const proposalsTitle = document.getElementById('proposals-title');
+            const addProposalButton = document.getElementById('add-proposal-button');
+            const profilePicturePreview = document.getElementById('profile-picture-preview');
+            const profileNameInput = document.getElementById('profile-name-input');
+            const profileUniversityInput = document.getElementById('profile-university-input');
+            
+            if (isSponsor) {
+                mahasiswaDashboard.style.display = 'none';
+                sponsorDashboard.style.display = 'block';
+                addProposalButton.style.display = 'none';
+
+                userAvatar.src = 'https://placehold.co/40x40/1A2E35/FFFFFF?text=S';
+                userName.textContent = 'PT CPI Racing Drift';
+                userRole.textContent = 'Sponsor';
+                proposalLinkText.textContent = 'Proposal Didukung';
+                
+                proposalsTitle.textContent = 'Daftar Proposal Didukung';
+                profilePicturePreview.src = 'https://placehold.co/80x80/1A2E35/FFFFFF?text=S';
+                profileNameInput.value = 'PT CPI Racing Drift';
+                profileUniversityInput.value = 'Industri Otomotif';
+                
+            } else {
+                mahasiswaDashboard.style.display = 'block';
+                sponsorDashboard.style.display = 'none';
+                addProposalButton.style.display = 'inline-flex';
+
+                userAvatar.src = 'https://placehold.co/40x40/FF7B54/FFFFFF?text=I';
+                userName.textContent = 'Ithayoo';
+                userRole.textContent = 'Mahasiswa';
+                proposalLinkText.textContent = 'Proposal Saya';
+
+                proposalsTitle.textContent = 'Daftar Semua Proposal Saya';
+                profilePicturePreview.src = 'https://placehold.co/80x80/FF7B54/FFFFFF?text=I';
+                profileNameInput.value = 'Ithayoo';
+                profileUniversityInput.value = 'Cyber University';
+            }
+        }
+        
+        roleToggle.addEventListener('change', (e) => {
+            updateDashboardView(e.target.checked);
+        });
+
+        // Initial view setup
+        updateDashboardView(roleToggle.checked);
+    });
+    </script>
+</body>
+</html>
