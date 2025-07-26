@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan - Sadaku</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            background-color: #F8F9FA;
+        }
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+
+        /* Color Palette */
+        .text-sadaku-dark { color: #1A2E35; }
+        .bg-sadaku-dark { background-color: #1A2E35; }
+        .text-sadaku-orange { color: #FF7B54; }
+        .bg-sadaku-orange { background-color: #FF7B54; }
+        .hover\:bg-sadaku-orange-dark:hover { background-color: #FF6A3D; }
+        
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        .conversation-item.active {
+            background-color: #FFF7F5; /* bg-sadaku-light */
+            border-right: 4px solid #FF7B54; /* border-sadaku-orange */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="h-screen flex flex-col">
+        <!-- Header (Logged In State) -->
+        <header class="bg-sadaku-dark shadow-lg z-20 flex-shrink-0">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="index.html" class="font-poppins font-extrabold text-2xl text-white">Sadaku</a>
+                <div class="flex items-center space-x-4">
+                     <a href="dashboard.html" class="flex items-center space-x-2 group">
+                        <img src="https://placehold.co/40x40/FF7B54/FFFFFF?text=I" alt="[Foto profil pengguna]" class="w-10 h-10 rounded-full border-2 border-transparent group-hover:border-white transition">
+                        <span class="text-white font-semibold hidden md:block group-hover:text-sadaku-orange">Ithayoo</span>
+                     </a>
+                     <a href="index.html" title="Logout" class="bg-red-500 hover:bg-red-600 text-white font-bold h-10 w-10 rounded-lg text-sm flex items-center justify-center"><i class="fas fa-sign-out-alt"></i></a>
+                </div>
+            </div>
+        </header>
+    
+        <main class="flex-1 flex overflow-hidden">
+            <!-- Kolom Daftar Percakapan (Kiri) -->
+            <div class="w-full md:w-1/3 lg:w-1/4 bg-white border-r border-gray-200 flex flex-col">
+                <!-- Header Daftar Percakapan -->
+                <div class="p-4 border-b">
+                    <h2 class="font-poppins text-xl font-bold text-sadaku-dark">Pesan</h2>
+                    <div class="relative mt-2">
+                        <input type="text" placeholder="Cari percakapan..." class="w-full pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sadaku-orange/50">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+                <!-- List Percakapan -->
+                <div class="flex-1 overflow-y-auto custom-scrollbar">
+                    <!-- Item Percakapan (Aktif) -->
+                    <div class="conversation-item active flex items-center p-4 cursor-pointer">
+                        <div class="relative">
+                            <img src="https://placehold.co/50x50/1A2E35/FFFFFF?text=C" class="w-12 h-12 rounded-full" alt="[Logo PT CPI]">
+                            <span class="absolute bottom-0 right-0 block h-3 w-3 bg-green-500 border-2 border-white rounded-full"></span>
+                        </div>
+                        <div class="flex-1 ml-4 overflow-hidden">
+                            <p class="font-bold text-sadaku-dark truncate">PT CPI Racing Drift</p>
+                            <p class="text-sm text-gray-600 truncate">Baik, kami tertarik dengan proposalnya...</p>
+                        </div>
+                        <span class="w-3 h-3 bg-sadaku-orange rounded-full ml-2 flex-shrink-0" title="Pesan belum dibaca"></span>
+                    </div>
+                    <!-- Item Percakapan Lain -->
+                    <div class="conversation-item flex items-center p-4 cursor-pointer hover:bg-gray-50">
+                        <img src="https://placehold.co/50x50/EC4899/FFFFFF?text=B" class="w-12 h-12 rounded-full" alt="[Logo BEM FSRD]">
+                        <div class="flex-1 ml-4 overflow-hidden">
+                             <p class="font-bold text-sadaku-dark truncate">BEM FSRD</p>
+                             <p class="text-sm text-gray-500 truncate">Sama-sama! Terima kasih kembali atas...</p>
+                        </div>
+                    </div>
+                    <div class="conversation-item flex items-center p-4 cursor-pointer hover:bg-gray-50">
+                         <img src="https://placehold.co/50x50/3B82F6/FFFFFF?text=A" class="w-12 h-12 rounded-full" alt="[Logo Admin Sadaku]">
+                        <div class="flex-1 ml-4 overflow-hidden">
+                            <p class="font-bold text-sadaku-dark truncate">Admin Sadaku</p>
+                            <p class="text-sm text-gray-500 truncate">Selamat datang di Sadaku! Akun...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kolom Isi Pesan (Kanan) -->
+            <div class="flex-1 flex flex-col bg-gray-50">
+                <!-- Header Isi Pesan -->
+                <div class="bg-white p-4 border-b border-gray-200 flex items-center justify-between shadow-sm">
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/40x40/1A2E35/FFFFFF?text=C" class="w-10 h-10 rounded-full mr-3" alt="[Logo PT CPI]">
+                        <div>
+                            <p class="font-bold text-sadaku-dark">PT CPI Racing Drift</p>
+                            <p class="text-xs text-green-600 font-semibold">Online</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-500">Terkait Event:</p>
+                        <a href="event-detail.html" class="text-sm font-semibold text-sadaku-orange hover:underline">Tech Fest 2025</a>
+                    </div>
+                </div>
+
+                <!-- Isi Pesan -->
+                <div id="chat-box" class="flex-1 p-6 overflow-y-auto custom-scrollbar">
+                    <div class="space-y-6">
+                        <!-- Pesan dari Sponsor (Kiri) -->
+                        <div class="flex items-end gap-3">
+                            <img src="https://placehold.co/32x32/1A2E35/FFFFFF?text=C" class="w-8 h-8 rounded-full flex-shrink-0" alt="[Logo PT CPI]">
+                            <div class="bg-white p-3 rounded-lg rounded-bl-none shadow-sm max-w-md">
+                                <p class="text-sm text-gray-800">Halo, kami dari PT CPI Racing Drift. Kami sudah melihat proposal untuk Tech Fest 2025 dan cukup tertarik.</p>
+                                <p class="text-xs text-gray-400 text-right mt-1">10:30</p>
+                            </div>
+                        </div>
+
+                        <!-- Pesan dari Anda (Kanan) -->
+                        <div class="flex items-end gap-3 justify-end">
+                            <div class="bg-sadaku-orange text-white p-3 rounded-lg rounded-br-none shadow-sm max-w-md">
+                                <p class="text-sm">Selamat pagi, terima kasih telah menghubungi kami. Senang sekali mendengar PT CPI Racing Drift tertarik dengan acara kami. Informasi apa yang bisa kami bantu jelaskan lebih lanjut?</p>
+                                <p class="text-xs text-white/70 text-right mt-1">10:32</p>
+                            </div>
+                             <img src="https://placehold.co/32x32/FF7B54/FFFFFF?text=I" class="w-8 h-8 rounded-full flex-shrink-0" alt="[Foto Profil Ithayoo]">
+                        </div>
+
+                        <!-- Pesan dari Sponsor (Kiri) -->
+                        <div class="flex items-end gap-3">
+                            <img src="https://placehold.co/32x32/1A2E35/FFFFFF?text=C" class="w-8 h-8 rounded-full flex-shrink-0" alt="[Logo PT CPI]">
+                            <div class="bg-white p-3 rounded-lg rounded-bl-none shadow-sm max-w-md">
+                                <p class="text-sm text-gray-800">Baik, kami tertarik dengan proposalnya. Mohon kirimkan detail lebih lanjut mengenai paket sponsorship Platinum dan benefit apa saja yang akan kami dapatkan secara eksklusif.</p>
+                                <p class="text-xs text-gray-400 text-right mt-1">10:35</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Input Pesan -->
+                <div class="bg-white p-4 border-t border-gray-200">
+                    <div class="flex items-center gap-2">
+                        <button class="h-10 w-10 text-gray-500 hover:text-sadaku-orange flex-shrink-0"><i class="fas fa-paperclip fa-lg"></i></button>
+                        <input type="text" id="message-input" placeholder="Ketik pesan di sini..." class="w-full px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-sadaku-orange/50 bg-gray-100">
+                        <button id="send-btn" class="bg-sadaku-orange hover:bg-sadaku-orange-dark text-white font-bold h-10 w-10 rounded-full flex-shrink-0 flex items-center justify-center">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatBox = document.getElementById('chat-box');
+            const messageInput = document.getElementById('message-input');
+            const sendBtn = document.getElementById('send-btn');
+
+            // Scroll ke paling bawah saat halaman dimuat
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            function sendMessage() {
+                const messageText = messageInput.value.trim();
+                if (messageText === '') return;
+
+                // Buat elemen pesan baru
+                const messageElement = document.createElement('div');
+                messageElement.className = 'flex items-end gap-3 justify-end';
+                messageElement.innerHTML = `
+                    <div class="bg-sadaku-orange text-white p-3 rounded-lg rounded-br-none shadow-sm max-w-md">
+                        <p class="text-sm">${messageText}</p>
+                        <p class="text-xs text-white/70 text-right mt-1">${new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</p>
+                    </div>
+                    <img src="https://placehold.co/32x32/FF7B54/FFFFFF?text=I" class="w-8 h-8 rounded-full flex-shrink-0" alt="[Foto Profil Ithayoo]">
+                `;
+                
+                // Tambahkan pesan ke chat box
+                chatBox.querySelector('.space-y-6').appendChild(messageElement);
+
+                // Kosongkan input
+                messageInput.value = '';
+
+                // Scroll otomatis ke pesan terbaru
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // Fokus kembali ke input
+                messageInput.focus();
+            }
+            
+            sendBtn.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

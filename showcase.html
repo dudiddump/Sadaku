@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jelajahi Event - Sadaku</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', 'Inter', sans-serif;
+            background-color: #F8F9FA;
+        }
+        .font-inter { font-family: 'Inter', sans-serif; }
+
+        /* Color Palette */
+        .text-sadaku-dark { color: #1A2E35; }
+        .bg-sadaku-dark { background-color: #1A2E35; }
+        .text-sadaku-orange { color: #FF7B54; }
+        .bg-sadaku-orange { background-color: #FF7B54; }
+        .hover\:bg-sadaku-orange-dark:hover { background-color: #FF6A3D; }
+        .border-sadaku-orange { border-color: #FF7B54; }
+        .ring-sadaku-orange:focus { --tw-ring-color: #FF7B54; }
+        
+        .font-logo-sadaku {
+            font-weight: 800;
+            font-size: 2rem;
+            letter-spacing: 0.5px;
+        }
+
+        .category-btn.active {
+            background-color: #1A2E35;
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(26, 46, 53, 0.3);
+        }
+        
+        /* Custom checkbox style */
+        .custom-checkbox:checked {
+            background-color: #1A2E35;
+            border-color: #1A2E35;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-sadaku-dark shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="font-logo-sadaku text-white">Sadaku</a>
+            <a href="login.html" class="border-2 border-white text-white font-semibold py-2 px-6 rounded-lg hover:bg-white hover:text-sadaku-dark transition-colors text-sm flex-shrink-0">
+                Masuk / Daftar
+            </a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+        
+        <!-- REVISI: Hero Banner Showcase -->
+        <section class="mb-12">
+            <div class="bg-sadaku-dark rounded-2xl shadow-xl p-8 md:p-12 text-white overflow-hidden relative">
+                <div class="z-10 text-center">
+                    <h1 class="text-3xl md:text-5xl font-black mb-3">Temukan & Dukung Kegiatan Berdampak</h1>
+                    <p class="font-inter max-w-2xl mx-auto">Jelajahi ratusan proposal inovatif dari talenta muda di seluruh Indonesia. Salurkan dukungan Anda secara tepat guna dan transparan.</p>
+                </div>
+                <div class="absolute w-64 h-64 bg-white/5 rounded-full -bottom-20 -right-20"></div>
+                <div class="absolute w-48 h-48 bg-white/5 rounded-full top-10 -left-24"></div>
+            </div>
+        </section>
+
+        <!-- Kategori -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-sadaku-dark mb-4">Telusuri Berdasarkan Kategori</h2>
+            <div id="category-container" class="flex space-x-2 md:space-x-4 overflow-x-auto pb-4 -mx-6 px-6">
+                <!-- Buttons are populated by JS -->
+            </div>
+        </section>
+
+        <!-- REVISI: Filter dan Grid Event -->
+        <section>
+            <!-- Filter Bar -->
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 bg-white p-4 rounded-xl shadow">
+                <h2 class="text-xl font-bold text-sadaku-dark mb-3 sm:mb-0">Daftar Proposal Kegiatan</h2>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+                    <!-- REVISI: Filter Verifikasi -->
+                    <label for="verified-only" class="flex items-center text-sm font-semibold text-gray-700 cursor-pointer">
+                        <input type="checkbox" id="verified-only" class="custom-checkbox h-5 w-5 rounded border-gray-300 text-sadaku-dark focus:ring-sadaku-orange mr-2">
+                        Hanya Organisasi Terverifikasi
+                    </label>
+                    <div class="relative">
+                        <select id="sort-select" class="appearance-none bg-gray-100 border border-gray-300 rounded-lg py-2 pl-4 pr-10 text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 ring-sadaku-orange w-full">
+                            <option value="populer">Urutkan: Paling Populer</option>
+                            <option value="terbaru">Urutkan: Paling Baru</option>
+                            <option value="berakhir">Urutkan: Segera Berakhir</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid Event -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="event-grid">
+                <!-- Cards will be dynamically inserted here by JavaScript -->
+            </div>
+
+            <!-- Pesan jika tidak ada event ditemukan -->
+            <div id="no-events-message" class="hidden text-center py-16">
+                <i class="fas fa-search-minus fa-4x text-gray-300 mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-500">Oops, Tidak Ada Event</h3>
+                <p class="text-gray-400 font-inter">Coba ganti filter atau kategori yang kamu pilih.</p>
+            </div>
+
+            <!-- Tombol Load More -->
+            <div id="load-more-container" class="text-center mt-12">
+                <button id="load-more-btn" class="bg-white hover:bg-gray-100 text-sadaku-dark font-bold py-3 px-8 rounded-lg shadow-md border border-gray-300 transition-all duration-300 transform hover:scale-105">
+                    Tampilkan Lebih Banyak
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-sadaku-dark text-gray-400 py-10 font-inter mt-24">
+       <div class="container mx-auto px-6 text-center md:text-left">
+           <p class="text-sm">&copy; <span id="currentYear"></span> Sadaku. Dibuat dengan ❤️ untuk kemajuan mahasiswa Indonesia.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- DATABASE EVENT (Simulasi) ---
+    const eventsData = [
+        { id: 1, title: "Tech Fest 2025: Innovate-a-thon", organizer: "Himpunan Mahasiswa TI", category: "teknologi", verified: true, date: "2025-08-10", funded: 6500000, target: 10000000, popularity: 85, image: "https://placehold.co/400x250/3B82F6/FFFFFF?text=Tech+Fest", color: "blue-500", icon: "fa-laptop-code" },
+        { id: 2, title: "Pameran Seni 'VOICES'", organizer: "UKM Seni Rupa", category: "seni", verified: false, date: "2025-07-20", funded: 2000000, target: 5000000, popularity: 40, image: "https://placehold.co/400x250/EC4899/FFFFFF?text=Art+Exhibition", color: "pink-500", icon: "fa-palette" },
+        { id: 3, title: "Green Campus Project", organizer: "BEM Fakultas Teknik", category: "sosial", verified: true, date: "2025-09-01", funded: 2550000, target: 3000000, popularity: 90, image: "https://placehold.co/400x250/22C55E/FFFFFF?text=Green+Campus", color: "green-500", icon: "fa-seedling" },
+        { id: 4, title: "Career Days 2025", organizer: "Pusat Karir Universitas", category: "pendidikan", verified: true, date: "2025-07-05", funded: 4000000, target: 20000000, popularity: 20, image: "https://placehold.co/400x250/0EA5E9/FFFFFF?text=Career+Days", color: "sky-500", icon: "fa-briefcase" },
+        { id: 5, title: "Campus Fun Run 5K", organizer: "UKM Lari", category: "olahraga", verified: false, date: "2025-06-30", funded: 9000000, target: 10000000, popularity: 95, image: "https://placehold.co/400x250/EF4444/FFFFFF?text=Fun+Run", color: "red-500", icon: "fa-person-running" },
+        { id: 6, title: "Seminar Mental Health: It's OK", organizer: "BEM Fakultas Psikologi", category: "kesehatan", verified: true, date: "2025-07-15", funded: 2750000, target: 5000000, popularity: 55, image: "https://placehold.co/400x250/14B8A6/FFFFFF?text=Mental+Health", color: "teal-500", icon: "fa-brain" },
+        { id: 7, title: "Workshop UI/UX Design 101", organizer: "Komunitas Desain Grafis", category: "teknologi", verified: true, date: "2025-08-25", funded: 1500000, target: 2000000, popularity: 75, image: "https://placehold.co/400x250/F59E0B/FFFFFF?text=UI/UX+Workshop", color: "amber-500", icon: "fa-drafting-compass" },
+        { id: 8, title: "Bakti Sosial Ceria", organizer: "Aliansi BEM se-Universitas", category: "sosial", verified: true, date: "2025-06-25", funded: 3000000, target: 3000000, popularity: 100, image: "https://placehold.co/400x250/A855F7/FFFFFF?text=Bakti+Sosial", color: "purple-500", icon: "fa-hands-helping" },
+    ];
+    const categories = [
+        { id: "semua", name: "Semua", icon: "fa-star" },
+        { id: "teknologi", name: "Teknologi", icon: "fa-laptop-code" },
+        { id: "seni", name: "Seni & Kreasi", icon: "fa-palette" },
+        { id: "sosial", name: "Sosial", icon: "fa-seedling" },
+        { id: "pendidikan", name: "Pendidikan", icon: "fa-book-open" },
+        { id: "kesehatan", name: "Kesehatan", icon: "fa-heartbeat" },
+        { id: "olahraga", name: "Olahraga", icon: "fa-futbol" },
+    ];
+
+    // --- Elemen UI ---
+    const categoryContainer = document.getElementById('category-container');
+    const eventGrid = document.getElementById('event-grid');
+    const sortSelect = document.getElementById('sort-select');
+    const verifiedOnlyCheckbox = document.getElementById('verified-only');
+    const noEventsMessage = document.getElementById('no-events-message');
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    
+    let activeCategory = 'semua';
+    let showVerifiedOnly = false;
+    let currentSort = 'populer';
+    let itemsToShow = 8;
+    let allEvents = [];
+    
+    // --- FUNGSI RENDER ---
+    const renderCategories = () => {
+        categoryContainer.innerHTML = categories.map(cat => `
+            <button data-filter="${cat.id}" class="category-btn ${cat.id === 'semua' ? 'active' : ''} flex-shrink-0 bg-white hover:bg-gray-200 text-gray-700 font-semibold py-2 px-5 rounded-full shadow-md transition-all duration-200 text-sm flex items-center">
+                <i class="fas ${cat.icon} mr-2 text-xs"></i> ${cat.name}
+            </button>
+        `).join('');
+    };
+
+    const renderEvents = () => {
+        // 1. Filter
+        let filteredEvents = eventsData.filter(event => {
+            const categoryMatch = activeCategory === 'semua' || event.category === activeCategory;
+            const verifiedMatch = !showVerifiedOnly || event.verified;
+            return categoryMatch && verifiedMatch;
+        });
+
+        // 2. Sort
+        filteredEvents.sort((a, b) => {
+            switch (currentSort) {
+                case 'terbaru': return new Date(b.date) - new Date(a.date);
+                case 'berakhir': 
+                    const daysLeftA = Math.ceil((new Date(a.date) - new Date()) / (1000 * 60 * 60 * 24));
+                    const daysLeftB = Math.ceil((new Date(b.date) - new Date()) / (1000 * 60 * 60 * 24));
+                    return daysLeftA - daysLeftB;
+                default: return b.popularity - a.popularity;
+            }
+        });
+        
+        allEvents = filteredEvents;
+        displayEvents();
+    };
+    
+    const displayEvents = () => {
+        eventGrid.innerHTML = ''; // Clear grid
+
+        const eventsToDisplay = allEvents.slice(0, itemsToShow);
+        
+        if (eventsToDisplay.length === 0) {
+            noEventsMessage.classList.remove('hidden');
+        } else {
+            noEventsMessage.classList.add('hidden');
+        }
+
+        eventsToDisplay.forEach(event => {
+            const percentage = Math.round((event.funded / event.target) * 100);
+            const daysLeft = Math.ceil((new Date(event.date) - new Date()) / (1000 * 60 * 60 * 24));
+
+            const card = document.createElement('a');
+            card.href = `event-detail.html?id=${event.id}`;
+            card.className = 'event-card bg-white rounded-xl shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 block';
+            card.innerHTML = `
+                <div class="relative">
+                    <img src="${event.image}" alt="[Gambar event ${event.title}]" class="w-full h-52 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x250/E0E0E0/B0B0B0?text=Error';">
+                    <div class="absolute top-3 right-3 bg-${event.color} text-white text-xs font-semibold px-2.5 py-1.5 rounded-full flex items-center shadow-md"><i class="fas ${event.icon} mr-1.5"></i> ${event.category.toUpperCase()}</div>
+                </div>
+                <div class="p-5 flex flex-col h-full">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <p class="text-sm text-gray-500 font-inter flex items-center">
+                                ${event.organizer}
+                                ${event.verified ? '<span class="ml-2 text-blue-500" title="Organisasi Terverifikasi"><i class="fas fa-check-circle"></i></span>' : ''}
+                            </p>
+                        </div>
+                        <h3 class="font-bold text-lg text-sadaku-dark group-hover:text-sadaku-orange transition-colors">${event.title}</h3>
+                    </div>
+                    <div class="mt-auto pt-3">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 my-3"><div class="bg-sadaku-orange h-2.5 rounded-full" style="width: ${percentage}%"></div></div>
+                        <div class="flex justify-between items-center text-sm font-inter">
+                            <div>
+                                <span class="font-bold text-sadaku-dark">Rp ${(event.funded/1000000).toFixed(2).replace('.',',')}jt</span>
+                            </div>
+                            <span class="font-semibold text-gray-600 flex items-center" title="Sisa hari penggalangan dana">
+                                <i class="far fa-clock mr-1.5 text-gray-400"></i>
+                                ${daysLeft > 0 ? `${daysLeft} hari` : 'Selesai'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            eventGrid.appendChild(card);
+        });
+
+        // Handle Load More button visibility
+        if (eventsToDisplay.length < allEvents.length) {
+            loadMoreBtn.classList.remove('hidden');
+        } else {
+            loadMoreBtn.classList.add('hidden');
+        }
+    }
+    
+    // --- EVENT LISTENERS ---
+    categoryContainer.addEventListener('click', (e) => {
+        const button = e.target.closest('.category-btn');
+        if (!button) return;
+        
+        activeCategory = button.dataset.filter;
+        document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        itemsToShow = 8; 
+        renderEvents();
+    });
+
+    verifiedOnlyCheckbox.addEventListener('change', (e) => {
+        showVerifiedOnly = e.target.checked;
+        itemsToShow = 8;
+        renderEvents();
+    });
+
+    sortSelect.addEventListener('change', (e) => {
+        currentSort = e.target.value;
+        renderEvents();
+    });
+    
+    loadMoreBtn.addEventListener('click', () => {
+        itemsToShow += 4;
+        displayEvents();
+    });
+    
+    // --- INISIALISASI ---
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    renderCategories();
+    renderEvents();
+});
+</script>
+
+</body>
+</html>

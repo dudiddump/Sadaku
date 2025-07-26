@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajukan Proposal Baru - Sadaku</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            background-color: #F8F9FA;
+        }
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+
+        /* Color Palette */
+        .text-sadaku-dark { color: #1A2E35; }
+        .bg-sadaku-dark { background-color: #1A2E35; }
+        .text-sadaku-orange { color: #FF7B54; }
+        .bg-sadaku-orange { background-color: #FF7B54; }
+        .hover\:bg-sadaku-orange-dark:hover { background-color: #FF6A3D; }
+        .border-sadaku-orange { border-color: #FF7B54; }
+        .ring-sadaku-orange:focus { --tw-ring-color: #FF7B54; }
+        .focus\:border-sadaku-orange:focus { border-color: #FF7B54; }
+
+        /* Stepper Styling */
+        .step { transition: all 0.3s ease; }
+        .step.active .step-circle { background-color: #FF7B54; color: white; border-color: #FF7B54; }
+        .step.completed .step-circle { background-color: #1A2E35; color: white; border-color: #1A2E35; }
+        .step .step-line { background-color: #E5E7EB; }
+        .step.completed .step-line { background-color: #1A2E35; }
+
+        /* Form Content Styling */
+        .form-step { display: none; }
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Custom File Input */
+        .file-drop-area {
+            border: 2px dashed #CBD5E1;
+            transition: all 0.3s ease;
+        }
+        .file-drop-area.dragover {
+            border-color: #FF7B54;
+            background-color: #FFF7F5;
+        }
+
+        /* Custom Modal Styling */
+        #confirmation-modal .modal-content {
+            transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header (Logged In State) -->
+    <header class="bg-sadaku-dark shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="font-poppins font-extrabold text-2xl text-white">Sadaku</a>
+            <div class="flex items-center space-x-4">
+                 <a href="dashboard.html" class="flex items-center space-x-2 group">
+                    <img src="https://placehold.co/40x40/FF7B54/FFFFFF?text=I" alt="[Foto profil pengguna]" class="w-10 h-10 rounded-full border-2 border-transparent group-hover:border-white transition">
+                    <span class="text-white font-semibold hidden md:block group-hover:text-sadaku-orange">Ithayoo</span>
+                 </a>
+                 <a href="index.html" title="Logout" class="bg-red-500 hover:bg-red-600 text-white font-bold h-10 w-10 rounded-lg text-sm flex items-center justify-center"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-10">
+        <!-- Breadcrumb -->
+        <nav class="text-sm font-semibold mb-6" aria-label="Breadcrumb">
+            <ol class="list-none p-0 inline-flex items-center">
+                <li><a href="index.html" class="text-gray-500 hover:text-sadaku-orange">Home</a></li>
+                <li class="mx-2"><i class="fas fa-chevron-right text-gray-400"></i></li>
+                <li><a href="dashboard.html" class="text-gray-500 hover:text-sadaku-orange">Dashboard</a></li>
+                <li class="mx-2"><i class="fas fa-chevron-right text-gray-400"></i></li>
+                <li><span class="text-sadaku-dark">Ajukan Proposal Baru</span></li>
+            </ol>
+        </nav>
+        
+        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 max-w-4xl mx-auto">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-sadaku-dark">Formulir Pengajuan Proposal</h1>
+                <p class="text-lg text-gray-600 mt-2">Lengkapi setiap langkah untuk membuat proposal yang menarik.</p>
+            </div>
+
+            <!-- Stepper -->
+            <div id="stepper" class="w-full mb-10">
+                <div class="flex items-center">
+                    <!-- Step 1 -->
+                    <div class="step flex-1 text-center active" data-step="1">
+                        <div class="relative mb-2">
+                            <div class="step-circle w-10 h-10 mx-auto bg-white border-2 border-gray-300 rounded-full text-lg font-bold flex items-center justify-center">1</div>
+                            <div class="step-line absolute top-1/2 left-0 w-full h-1 -translate-y-1/2 -z-10"></div>
+                        </div>
+                        <p class="text-xs font-semibold">Informasi Dasar</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="step flex-1 text-center" data-step="2">
+                        <div class="relative mb-2">
+                             <div class="step-circle w-10 h-10 mx-auto bg-white border-2 border-gray-300 rounded-full text-lg font-bold flex items-center justify-center">2</div>
+                             <div class="step-line absolute top-1/2 left-0 w-full h-1 -translate-y-1/2 -z-10"></div>
+                        </div>
+                        <p class="text-xs font-semibold">Detail Kegiatan</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="step flex-1 text-center" data-step="3">
+                        <div class="relative mb-2">
+                           <div class="step-circle w-10 h-10 mx-auto bg-white border-2 border-gray-300 rounded-full text-lg font-bold flex items-center justify-center">3</div>
+                           <div class="step-line absolute top-1/2 left-0 w-full h-1 -translate-y-1/2 -z-10"></div>
+                        </div>
+                        <p class="text-xs font-semibold">Rincian Anggaran</p>
+                    </div>
+                     <!-- Step 4 -->
+                    <div class="step flex-1 text-center" data-step="4">
+                        <div class="relative mb-2">
+                           <div class="step-circle w-10 h-10 mx-auto bg-white border-2 border-gray-300 rounded-full text-lg font-bold flex items-center justify-center">4</div>
+                        </div>
+                        <p class="text-xs font-semibold">Tinjau & Kirim</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Content -->
+            <form id="proposal-form">
+                <!-- Step 1: Informasi Dasar -->
+                <div class="form-step active" data-step="1">
+                    <div class="space-y-6">
+                        <div><label for="event-title" class="block text-sm font-bold text-gray-700 mb-1">Judul Kegiatan</label><input type="text" id="event-title" placeholder="Contoh: Tech Fest 2025" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ring-sadaku-orange/50 focus:border-sadaku-orange"></div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div><label for="event-category" class="block text-sm font-bold text-gray-700 mb-1">Kategori Kegiatan</label><select id="event-category" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ring-sadaku-orange/50 focus:border-sadaku-orange"><option value="">Pilih Kategori</option><option value="teknologi">Teknologi</option><option value="seni">Seni & Kreasi</option><option value="sosial">Sosial</option><option value="pendidikan">Pendidikan</option><option value="kesehatan">Kesehatan</option><option value="olahraga">Olahraga</option></select></div>
+                            <div><label for="funding-target" class="block text-sm font-bold text-gray-700 mb-1">Target Dana</label><div class="relative"><span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">Rp</span><input type="number" id="funding-target" placeholder="10000000" class="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ring-sadaku-orange/50 focus:border-sadaku-orange"></div></div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                             <div><label for="start-date" class="block text-sm font-bold text-gray-700 mb-1">Tanggal Mulai</label><input type="date" id="start-date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ring-sadaku-orange/50 focus:border-sadaku-orange"></div>
+                            <div><label for="end-date" class="block text-sm font-bold text-gray-700 mb-1">Tanggal Selesai</label><input type="date" id="end-date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ring-sadaku-orange/50 focus:border-sadaku-orange"></div>
+                        </div>
+                        <div><label class="block text-sm font-bold text-gray-700 mb-1">Banner atau Poster Kegiatan</label><div id="banner-drop-area" class="file-drop-area mt-1 flex justify-center rounded-lg border-dashed border-gray-900/25 px-6 py-10"><div class="text-center"><i class="fas fa-image fa-3x text-gray-300 mx-auto"></i><div id="banner-text" class="mt-4 flex text-sm leading-6 text-gray-600"><label for="banner-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-sadaku-orange focus-within:outline-none focus-within:ring-2 focus-within:ring-sadaku-orange focus-within:ring-offset-2 hover:text-sadaku-orange-dark"><span>Unggah file</span><input id="banner-upload" name="banner-upload" type="file" class="sr-only" accept="image/*"></label><p class="pl-1">atau tarik dan lepas</p></div><p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF hingga 10MB</p></div><img id="banner-preview" class="hidden h-32 rounded-lg" alt="[Pratinjau Banner]"/></div></div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Detail Kegiatan -->
+                <div class="form-step" data-step="2">
+                    <div class="space-y-6">
+                         <div><label for="short-description" class="block text-sm font-bold text-gray-700 mb-1">Deskripsi Singkat (Max 150 Karakter)</label><textarea id="short-description" rows="2" maxlength="150" placeholder="Jelaskan kegiatanmu dalam satu kalimat menarik..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ring-sadaku-orange/50 focus:border-sadaku-orange"></textarea></div>
+                        <div><label for="full-description" class="block text-sm font-bold text-gray-700 mb-1">Deskripsi Lengkap Kegiatan</label><textarea id="full-description" rows="8" placeholder="Ceritakan semua tentang kegiatanmu, latar belakang, tujuan, dan mengapa kegiatan ini penting." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ring-sadaku-orange/50 focus:border-sadaku-orange"></textarea></div>
+                        <div><label for="proposal-file" class="block text-sm font-bold text-gray-700 mb-1">Unggah Proposal Lengkap (PDF)</label><input type="file" id="proposal-file" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" accept=".pdf"></div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Rincian Anggaran -->
+                <div class="form-step" data-step="3">
+                    <div class="space-y-6">
+                        <div><h3 class="text-lg font-bold text-sadaku-dark">Buat Rincian Anggaran Biaya</h3><p class="text-sm text-gray-600">Tambahkan semua item yang dibutuhkan beserta estimasi biayanya.</p></div>
+                        <div id="budget-items-container" class="space-y-3"></div>
+                        <button type="button" id="add-budget-item" class="text-sm font-semibold text-sadaku-orange hover:text-sadaku-orange-dark"><i class="fas fa-plus mr-2"></i>Tambah Item Anggaran</button>
+                        <div class="border-t pt-4 mt-4 flex justify-between items-center"><span class="text-lg font-bold text-sadaku-dark">Total Estimasi Anggaran:</span><span id="total-budget" class="text-lg font-bold text-sadaku-dark">Rp 0</span></div>
+                         <div id="budget-warning" class="hidden text-sm text-red-600">Peringatan: Total rincian anggaran tidak sesuai dengan target dana yang Anda tetapkan.</div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Tinjau & Kirim -->
+                <div class="form-step" data-step="4">
+                    <h3 class="text-xl font-bold text-sadaku-dark mb-4">Tinjau Kembali Proposal Anda</h3>
+                    <div id="review-container" class="space-y-4 text-gray-700 bg-gray-50 p-6 rounded-lg border"></div>
+                    <div class="mt-6">
+                        <label for="confirmation" class="flex items-start">
+                            <input type="checkbox" id="confirmation" class="h-5 w-5 rounded border-gray-300 text-sadaku-orange focus:ring-sadaku-orange mt-0.5">
+                            <span class="ml-3 text-sm">Saya menyatakan bahwa semua informasi yang diberikan adalah benar dan dapat dipertanggungjawabkan.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="mt-10 flex justify-between">
+                    <button type="button" id="prev-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg transition hidden">Sebelumnya</button>
+                    <button type="button" id="next-btn" class="bg-sadaku-orange hover:bg-sadaku-orange-dark text-white font-bold py-2 px-6 rounded-lg transition ml-auto">Selanjutnya</button>
+                    <button type="submit" id="submit-btn" class="bg-sadaku-dark hover:bg-gray-800 text-white font-bold py-2 px-6 rounded-lg transition hidden">Kirim Proposal</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- REVISI: Custom Modal untuk Konfirmasi -->
+    <div id="confirmation-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
+        <div class="modal-content bg-white rounded-2xl shadow-2xl p-6 md:p-8 text-center max-w-sm mx-auto transform scale-95 opacity-0">
+            <div class="text-6xl text-green-500 mb-4">
+                <i class="fas fa-paper-plane"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-sadaku-dark mb-2">Proposal Terkirim!</h3>
+            <p class="text-gray-600 font-inter mb-6">Proposal Anda telah berhasil diajukan. Kami akan memberitahu Anda jika ada pembaruan. Semoga berhasil!</p>
+            <button id="modal-close-btn" class="w-full bg-sadaku-dark hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300">
+                Kembali ke Dashboard
+            </button>
+        </div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('proposal-form');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const formSteps = document.querySelectorAll('.form-step');
+        const stepperItems = document.querySelectorAll('#stepper .step');
+        
+        let currentStep = 1;
+        const totalSteps = formSteps.length;
+
+        function updateButtons() {
+            prevBtn.classList.toggle('hidden', currentStep === 1);
+            nextBtn.classList.toggle('hidden', currentStep === totalSteps);
+            submitBtn.classList.toggle('hidden', currentStep !== totalSteps);
+        }
+
+        function updateStepper() {
+            stepperItems.forEach((step, index) => {
+                const stepNum = index + 1;
+                step.classList.remove('active', 'completed');
+                if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                } else if (stepNum === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+        }
+        
+        function goToStep(step) {
+            formSteps.forEach(s => s.classList.remove('active'));
+            document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+            currentStep = step;
+            updateButtons();
+            updateStepper();
+        }
+        
+        // REVISI: Validasi dihilangkan untuk mode prototipe
+        function validateStep(step) {
+            // const currentFormStep = document.querySelector(`.form-step[data-step="${step}"]`);
+            // const inputs = currentFormStep.querySelectorAll('input[required], select[required], textarea[required]');
+            // let isValid = true;
+            // inputs.forEach(input => {
+            //     if (!input.value.trim() || (input.type === 'checkbox' && !input.checked)) {
+            //         isValid = false;
+            //         input.classList.add('border-red-500');
+            //     } else {
+            //         input.classList.remove('border-red-500');
+            //     }
+            // });
+            // return isValid;
+            return true; // Selalu izinkan untuk lanjut
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (validateStep(currentStep) && currentStep < totalSteps) {
+                if(currentStep === totalSteps - 1) {
+                    populateReview();
+                }
+                goToStep(currentStep + 1);
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                goToStep(currentStep - 1);
+            }
+        });
+        
+        // --- Custom Banner Upload Logic ---
+        const bannerDropArea = document.getElementById('banner-drop-area');
+        const bannerUpload = document.getElementById('banner-upload');
+        const bannerPreview = document.getElementById('banner-preview');
+        const bannerText = document.getElementById('banner-text');
+
+        bannerUpload.addEventListener('change', (e) => handleFiles(e.target.files));
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            bannerDropArea.addEventListener(eventName, (e) => { e.preventDefault(); e.stopPropagation(); }, false);
+        });
+        ['dragenter', 'dragover'].forEach(eventName => {
+            bannerDropArea.addEventListener(eventName, () => bannerDropArea.classList.add('dragover'), false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            bannerDropArea.addEventListener(eventName, () => bannerDropArea.classList.remove('dragover'), false);
+        });
+        bannerDropArea.addEventListener('drop', (e) => handleFiles(e.dataTransfer.files), false);
+        
+        function handleFiles(files) {
+            const file = files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    bannerPreview.src = e.target.result;
+                    bannerPreview.classList.remove('hidden');
+                    bannerText.parentElement.classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // --- Budget Calculation Logic ---
+        const budgetContainer = document.getElementById('budget-items-container');
+        const addBudgetItemBtn = document.getElementById('add-budget-item');
+        const totalBudgetEl = document.getElementById('total-budget');
+        const budgetWarning = document.getElementById('budget-warning');
+
+        function createBudgetItem() {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'grid grid-cols-12 gap-2 budget-item';
+            itemDiv.innerHTML = `<input type="text" placeholder="Deskripsi item" class="col-span-5 px-2 py-1 border border-gray-300 rounded-md text-sm"><input type="number" placeholder="Qty" value="1" class="col-span-2 px-2 py-1 border border-gray-300 rounded-md text-sm qty"><input type="number" placeholder="Harga Satuan" class="col-span-3 px-2 py-1 border border-gray-300 rounded-md text-sm price"><div class="col-span-2 flex items-center justify-between"><span class="text-sm font-semibold total-item">Rp 0</span><button type="button" class="text-red-500 hover:text-red-700 remove-item"><i class="fas fa-trash"></i></button></div>`;
+            budgetContainer.appendChild(itemDiv);
+        }
+
+        addBudgetItemBtn.addEventListener('click', createBudgetItem);
+        budgetContainer.addEventListener('input', (e) => { if (e.target.classList.contains('qty') || e.target.classList.contains('price')) { calculateTotalBudget(); } });
+        budgetContainer.addEventListener('click', (e) => { if (e.target.closest('.remove-item')) { e.target.closest('.budget-item').remove(); calculateTotalBudget(); } });
+
+        function calculateTotalBudget() {
+            let total = 0;
+            const items = budgetContainer.querySelectorAll('.budget-item');
+            items.forEach(item => {
+                const qty = item.querySelector('.qty').value || 0;
+                const price = item.querySelector('.price').value || 0;
+                const itemTotal = qty * price;
+                item.querySelector('.total-item').textContent = `Rp ${itemTotal.toLocaleString('id-ID')}`;
+                total += itemTotal;
+            });
+            totalBudgetEl.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            const fundingTarget = document.getElementById('funding-target').value || 0;
+            budgetWarning.classList.toggle('hidden', total == fundingTarget || total == 0);
+        }
+
+        // --- Review Step Population ---
+        function populateReview() {
+            const reviewContainer = document.getElementById('review-container');
+            const title = document.getElementById('event-title').value || "[Belum diisi]";
+            const category = document.getElementById('event-category').selectedOptions[0].text || "[Belum diisi]";
+            const target = `Rp ${parseInt(document.getElementById('funding-target').value || 0).toLocaleString('id-ID')}`;
+            const startDate = document.getElementById('start-date').value || "[Belum diisi]";
+            const endDate = document.getElementById('end-date').value || "[Belum diisi]";
+            const shortDesc = document.getElementById('short-description').value || "[Belum diisi]";
+            const budgetItems = [];
+            document.querySelectorAll('.budget-item').forEach(item => { const desc = item.querySelector('input[type="text"]').value; const total = item.querySelector('.total-item').textContent; if(desc) budgetItems.push(`<li>${desc}: <strong>${total}</strong></li>`); });
+
+            reviewContainer.innerHTML = `<div class="pb-2 border-b"><p class="text-sm text-gray-500">Judul Kegiatan</p><p class="font-bold">${title}</p></div><div class="pb-2 border-b"><p class="text-sm text-gray-500">Kategori</p><p class="font-bold">${category}</p></div><div class="pb-2 border-b"><p class="text-sm text-gray-500">Target Dana</p><p class="font-bold">${target}</p></div><div class="pb-2 border-b"><p class="text-sm text-gray-500">Jadwal</p><p class="font-bold">${startDate} s/d ${endDate}</p></div><div class="pb-2 border-b"><p class="text-sm text-gray-500">Deskripsi Singkat</p><p class="italic">"${shortDesc}"</p></div><div class="pb-2"><p class="text-sm text-gray-500">Ringkasan Anggaran</p><ul class="list-disc list-inside mt-1 space-y-1">${budgetItems.length > 0 ? budgetItems.join('') : '<li>[Belum ada rincian]</li>'}</ul><p class="font-bold mt-2 text-right">Total: ${totalBudgetEl.textContent}</p></div>`;
+        }
+        
+        // --- Form Submission & Modal Logic ---
+        const modal = document.getElementById('confirmation-modal');
+        const modalContent = modal.querySelector('.modal-content');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Cek checkbox konfirmasi di step terakhir
+            if (document.getElementById('confirmation').checked) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modalContent.classList.remove('scale-95', 'opacity-0'), 10);
+            } else {
+                // Beri sedikit feedback jika checkbox belum dicentang
+                alert("Harap centang kotak konfirmasi untuk melanjutkan.");
+            }
+        });
+
+        modalCloseBtn.addEventListener('click', () => {
+             modalContent.classList.add('scale-95', 'opacity-0');
+             setTimeout(() => { 
+                modal.classList.add('hidden');
+                window.location.href = 'dashboard.html'; 
+             }, 300);
+        });
+
+        createBudgetItem(); // Initialize with one budget item
+    });
+    </script>
+</body>
+</html>

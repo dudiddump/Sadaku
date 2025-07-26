@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Paket Donasi - Sadaku</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            background-color: #F8F9FA;
+        }
+        h1, h2, h3, h4, h5, h6, .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Color Palette */
+        .text-sadaku-dark { color: #1A2E35; }
+        .bg-sadaku-dark { background-color: #1A2E35; }
+        .text-sadaku-orange { color: #FF7B54; }
+        .bg-sadaku-orange { background-color: #FF7B54; }
+        .hover\:bg-sadaku-orange-dark:hover { background-color: #FF6A3D; }
+        .border-sadaku-orange { border-color: #FF7B54; }
+        
+        /* Donation Package Styling */
+        .package-card {
+            transition: all 0.3s ease-in-out;
+            border: 2px solid transparent;
+        }
+        .package-card.selected {
+            border-color: #FF7B54;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(255, 123, 84, 0.2), 0 4px 6px -2px rgba(255, 123, 84, 0.1);
+        }
+        .package-card.most-popular {
+            border-color: #1A2E35;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header (Logged In State) -->
+    <header class="bg-sadaku-dark shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="font-poppins font-extrabold text-2xl text-white">Sadaku</a>
+            <div class="flex items-center space-x-4">
+                 <a href="dashboard.html" class="flex items-center space-x-2 group">
+                    <img src="https://placehold.co/40x40/FFA751/1A2E35?text=S" alt="[Foto profil pengguna]" class="w-10 h-10 rounded-full border-2 border-transparent group-hover:border-white transition">
+                    <span class="text-white font-semibold hidden md:block group-hover:text-sadaku-orange">Sponsor Keren</span>
+                 </a>
+                 <a href="index.html" title="Logout" class="bg-red-500 hover:bg-red-600 text-white font-bold h-10 w-10 rounded-lg text-sm flex items-center justify-center"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-10">
+        <!-- Breadcrumb -->
+        <nav class="text-sm font-semibold mb-6" aria-label="Breadcrumb">
+            <ol class="list-none p-0 inline-flex items-center">
+                <li><a href="index.html" class="text-gray-500 hover:text-sadaku-orange">Home</a></li>
+                <li class="mx-2"><i class="fas fa-chevron-right text-gray-400"></i></li>
+                <li><a href="showcase.html" class="text-gray-500 hover:text-sadaku-orange">Jelajahi Event</a></li>
+                <li class="mx-2"><i class="fas fa-chevron-right text-gray-400"></i></li>
+                <li><a href="event-detail.html" class="text-gray-500 hover:text-sadaku-orange">Detail Event</a></li>
+                <li class="mx-2"><i class="fas fa-chevron-right text-gray-400"></i></li>
+                <li><span class="text-sadaku-dark">Pilih Dukungan</span></li>
+            </ol>
+        </nav>
+        
+        <div class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-sadaku-dark">Pilih Paket Dukungan Anda</h1>
+            <p class="text-lg text-gray-600 mt-2">Anda mendukung event: <span class="font-bold text-sadaku-orange">Tech Fest 2025</span></p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Donation Packages (Left) -->
+            <div class="lg:col-span-3 space-y-6">
+                
+                <!-- Platinum Package -->
+                <div class="package-card bg-white rounded-xl shadow-md p-6 cursor-pointer" data-amount="2000000" data-name="Platinum">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-2xl font-bold text-sadaku-dark">Sponsor Platinum</h3>
+                            <p class="text-xl font-bold text-sadaku-orange mt-1">Rp 2.000.000</p>
+                        </div>
+                        <div class="text-3xl text-gray-300 check-icon hidden"><i class="fas fa-check-circle text-green-500"></i></div>
+                    </div>
+                    <p class="text-gray-600 mt-4">Dukungan maksimal untuk dampak terbesar. Dapatkan eksposur premium di seluruh materi promosi acara.</p>
+                    <ul class="mt-4 space-y-2 text-gray-700">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 w-5 mr-2"></i> Logo ukuran besar di banner utama & backdrop.</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 w-5 mr-2"></i> Ad-libs (penyebutan sponsor) oleh MC di panggung.</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 w-5 mr-2"></i> Slot khusus untuk presentasi produk (15 menit).</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 w-5 mr-2"></i> Logo di semua postingan media sosial.</li>
+                    </ul>
+                </div>
+
+                <!-- Gold Package (Most Popular) -->
+                <div class="package-card bg-white rounded-xl shadow-md p-6 cursor-pointer relative most-popular" data-amount="1000000" data-name="Gold">
+                    <div class="absolute -top-3 right-5 bg-sadaku-dark text-white text-xs font-bold px-3 py-1 rounded-full">PALING POPULER</div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-2xl font-bold text-sadaku-dark">Sponsor Gold</h3>
+                            <p class="text-xl font-bold text-sadaku-orange mt-1">Rp 1.000.000</p>
+                        </div>
+                         <div class="text-3xl text-gray-300 check-icon hidden"><i class="fas fa-check-circle text-green-500"></i></div>
+                    </div>
+                    <p class="text-gray-600 mt-4">Pilihan terbaik untuk keseimbangan antara eksposur dan nilai dukungan. Cocok untuk sebagian besar sponsor.</p>
+                    <ul class="mt-4 space-y-2 text-gray-700">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 w-5 mr-2"></i> Logo ukuran sedang di banner utama.</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 w-5 mr-2"></i> Penyebutan sponsor oleh MC.</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 w-5 mr-2"></i> Logo di postingan media sosial.</li>
+                    </ul>
+                </div>
+                
+                <!-- Silver Package -->
+                <div class="package-card bg-white rounded-xl shadow-md p-6 cursor-pointer" data-amount="500000" data-name="Silver">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-2xl font-bold text-sadaku-dark">Sponsor Silver</h3>
+                            <p class="text-xl font-bold text-sadaku-orange mt-1">Rp 500.000</p>
+                        </div>
+                         <div class="text-3xl text-gray-300 check-icon hidden"><i class="fas fa-check-circle text-green-500"></i></div>
+                    </div>
+                    <p class="text-gray-600 mt-4">Cara hebat untuk menunjukkan dukungan Anda dan mendapatkan pengakuan dari komunitas.</p>
+                    <ul class="mt-4 space-y-2 text-gray-700">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 w-5 mr-2"></i> Logo ukuran kecil di banner.</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 w-5 mr-2"></i> Logo di postingan "Terima Kasih Sponsor".</li>
+                    </ul>
+                </div>
+                
+                <!-- Custom Donation -->
+                <div class="package-card bg-white rounded-xl shadow-md p-6" data-name="Custom">
+                    <h3 class="text-2xl font-bold text-sadaku-dark">Donasi Suka-Suka</h3>
+                    <p class="text-gray-600 mt-2">Beri dukungan dengan nominal lain tanpa memilih paket benefit.</p>
+                     <div class="mt-4 relative">
+                         <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-500 font-bold">Rp</span>
+                         <input type="number" id="custom-amount" placeholder="Masukkan nominal lain" class="w-full pl-12 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-sadaku-orange focus:ring-1 focus:ring-sadaku-orange text-lg font-bold">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Summary (Right) -->
+            <div class="lg:col-span-1">
+                <div class="sticky top-28 bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-sadaku-dark border-b pb-3 mb-4">Ringkasan Dukungan</h3>
+                    <div class="space-y-2 text-gray-600">
+                        <div class="flex justify-between">
+                            <span>Paket Dipilih:</span>
+                            <span id="summary-package" class="font-bold">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Nominal:</span>
+                            <span id="summary-amount" class="font-bold">Rp 0</span>
+                        </div>
+                    </div>
+                    <div class="border-t mt-4 pt-4">
+                        <div class="flex justify-between text-lg font-bold text-sadaku-dark">
+                            <span>Total Pembayaran:</span>
+                            <span id="summary-total">Rp 0</span>
+                        </div>
+                    </div>
+                    <button id="proceed-to-payment" class="w-full mt-6 bg-sadaku-orange text-white font-bold py-3.5 rounded-lg shadow-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                        Lanjutkan ke Pembayaran
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const packageCards = document.querySelectorAll('.package-card[data-amount]');
+        const customAmountInput = document.getElementById('custom-amount');
+        
+        const summaryPackage = document.getElementById('summary-package');
+        const summaryAmount = document.getElementById('summary-amount');
+        const summaryTotal = document.getElementById('summary-total');
+        const paymentButton = document.getElementById('proceed-to-payment');
+
+        let selectedPackage = null;
+        let selectedAmount = 0;
+
+        function updateSummary() {
+            if (selectedPackage) {
+                summaryPackage.textContent = selectedPackage.dataset.name;
+                summaryAmount.textContent = `Rp ${parseInt(selectedAmount).toLocaleString('id-ID')}`;
+                summaryTotal.textContent = `Rp ${parseInt(selectedAmount).toLocaleString('id-ID')}`;
+            } else {
+                summaryPackage.textContent = '-';
+                summaryAmount.textContent = 'Rp 0';
+                summaryTotal.textContent = 'Rp 0';
+            }
+            // Enable/disable button
+            paymentButton.disabled = selectedAmount <= 0;
+        }
+
+        packageCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Clear custom input if a package is selected
+                customAmountInput.value = '';
+
+                // Update selection visual
+                packageCards.forEach(c => {
+                    c.classList.remove('selected');
+                    c.querySelector('.check-icon').classList.add('hidden');
+                });
+                card.classList.add('selected');
+                card.querySelector('.check-icon').classList.remove('hidden');
+
+                // Update state
+                selectedPackage = card;
+                selectedAmount = parseInt(card.dataset.amount);
+                updateSummary();
+            });
+        });
+        
+        customAmountInput.addEventListener('input', (e) => {
+            // Deselect all packages if user types a custom amount
+            packageCards.forEach(c => {
+                 c.classList.remove('selected');
+                 c.querySelector('.check-icon').classList.add('hidden');
+            });
+
+            selectedPackage = { dataset: { name: 'Custom' } };
+            selectedAmount = parseInt(e.target.value) || 0;
+            updateSummary();
+        });
+
+        paymentButton.addEventListener('click', () => {
+            if(selectedAmount > 0) {
+                // In a real app, this would redirect to a payment gateway
+                alert(`Simulasi Pembayaran: Anda akan membayar sebesar Rp ${selectedAmount.toLocaleString('id-ID')} untuk paket ${selectedPackage.dataset.name}.`);
+                // Redirect to dashboard after successful "payment"
+                window.location.href = './dashboard.html';
+            }
+        });
+
+        // Initial state
+        updateSummary();
+
+        // Set copyright year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    });
+    </script>
+</body>
+</html>

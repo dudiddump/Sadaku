@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Event: Tech Fest 2025 - Sadaku</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            background-color: #F8F9FA;
+        }
+        h1, h2, h3, h4, h5, h6, .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Color Palette */
+        .text-sadaku-dark { color: #1A2E35; }
+        .bg-sadaku-dark { background-color: #1A2E35; }
+        .text-sadaku-orange { color: #FF7B54; }
+        .bg-sadaku-orange { background-color: #FF7B54; }
+        .hover\:bg-sadaku-orange-dark:hover { background-color: #FF6A3D; }
+        .border-sadaku-orange { border-color: #FF7B54; }
+        .ring-sadaku-orange:focus { --tw-ring-color: #FF7B54; }
+        .bg-sadaku-light { background-color: #FFF7F5; }
+        
+        /* Custom Tab Styles */
+        .tab-btn { transition: all 0.3s ease; border-bottom: 3px solid transparent; }
+        .tab-btn.active { color: #1A2E35; border-bottom-color: #FF7B54; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Prose Content Styling */
+        .prose-custom { line-height: 1.75; color: #374151; }
+        .prose-custom h3 { font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 700; margin-top: 1.75rem; margin-bottom: 1rem; color: #1A2E35;}
+        .prose-custom p { margin-bottom: 1rem; }
+        .prose-custom ul { list-style-position: inside; padding-left: 0.5rem; }
+        .prose-custom li { margin-bottom: 0.5rem; }
+        .prose-custom strong { color: #1A2E35; }
+
+        /* Login Toggle Stying */
+        #login-toggle:checked ~ .dot {
+            transform: translateX(100%);
+            background-color: #FF7B54;
+        }
+        #login-toggle:checked ~ .block {
+            background-color: #1A2E35;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-sadaku-dark shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="font-poppins font-extrabold text-2xl text-white">Sadaku</a>
+            <!-- Header kanan dinamis -->
+            <div id="header-right-guest" class="flex items-center space-x-4">
+                 <a href="login.html" class="border-2 border-white text-white font-semibold py-2 px-6 rounded-lg hover:bg-white hover:text-sadaku-dark transition-colors text-sm flex-shrink-0">
+                    Masuk / Daftar
+                </a>
+            </div>
+            <div id="header-right-user" class="hidden items-center space-x-4">
+                 <a href="dashboard.html" class="flex items-center space-x-2 group">
+                    <img src="https://placehold.co/40x40/FFA751/1A2E35?text=S" alt="[Foto profil pengguna]" class="w-10 h-10 rounded-full border-2 border-transparent group-hover:border-white transition">
+                    <span class="text-white font-semibold hidden md:block group-hover:text-sadaku-orange">Sponsor Keren</span>
+                 </a>
+                 <button id="logout-button" title="Logout" class="bg-red-500 hover:bg-red-600 text-white font-bold h-10 w-10 rounded-lg text-sm flex items-center justify-center"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tombol Simulasi Login -->
+    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 container mx-auto mt-4 rounded-r-lg" role="alert">
+      <div class="flex flex-wrap justify-between items-center gap-4">
+        <div>
+            <p class="font-bold">Mode Pengembang</p>
+            <p class="text-sm">Gunakan tombol ini untuk simulasi tampilan saat sudah/belum login.</p>
+        </div>
+        <label for="login-toggle" class="flex items-center cursor-pointer">
+            <span class="mr-3 font-semibold text-gray-900">Status Login:</span>
+            <div class="relative">
+                <input type="checkbox" id="login-toggle" class="sr-only">
+                <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
+                <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+            </div>
+        </label>
+      </div>
+    </div>
+
+
+    <main class="container mx-auto px-6 py-10">
+        <!-- Breadcrumb -->
+        <nav class="text-sm font-semibold mb-4" aria-label="Breadcrumb">
+            <ol class="list-none p-0 inline-flex">
+                <li class="flex items-center">
+                    <a href="showcase.html" class="text-gray-500 hover:text-sadaku-orange">Jelajahi Event</a>
+                </li>
+                <li class="flex items-center mx-2">
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </li>
+                <li class="flex items-center">
+                    <span class="text-sadaku-dark">Detail Event</span>
+                </li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+            <!-- Main Content (Left Column) -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="https://placehold.co/800x400/3B82F6/FFFFFF?text=Tech+Fest+2025" alt="[Banner Tech Fest 2025]" class="w-full h-64 object-cover">
+                    <div class="p-6 md:p-8">
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-sadaku-dark mb-2">Tech Fest 2025: Innovate-a-thon</h1>
+                        <p class="text-gray-500">Sebuah perayaan inovasi dan teknologi untuk masa depan.</p>
+                        
+                        <!-- Tabs -->
+                        <div class="border-b border-gray-200 mt-8 mb-6">
+                            <nav class="-mb-px flex space-x-6" id="tab-buttons">
+                                <button data-tab="deskripsi" class="tab-btn active py-3 px-1 text-base font-bold text-gray-500">Deskripsi</button>
+                                <button data-tab="anggaran" class="tab-btn py-3 px-1 text-base font-bold text-gray-500">Rincian Anggaran</button>
+                                <button data-tab="penyelenggara" class="tab-btn py-3 px-1 text-base font-bold text-gray-500">Penyelenggara</button>
+                            </nav>
+                        </div>
+
+                        <!-- Tab Content -->
+                        <div id="tab-contents" class="prose-custom">
+                            <div id="deskripsi-content" class="tab-content active"></div>
+                            <div id="anggaran-content" class="tab-content"></div>
+                            <div id="penyelenggara-content" class="tab-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action & Summary (Right Column) -->
+            <div class="lg:col-span-1">
+                <div class="sticky top-28 space-y-6">
+                    <!-- Funding Card -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
+                            <div class="bg-sadaku-orange h-3 rounded-full" style="width: 65%"></div>
+                        </div>
+                        <div class="flex justify-between items-end mb-4">
+                            <div>
+                                <p class="text-2xl font-bold text-sadaku-dark">Rp 6.500.000</p>
+                                <p class="text-sm text-gray-500">terkumpul dari target Rp 10.000.000</p>
+                            </div>
+                            <p class="text-2xl font-bold text-sadaku-orange">65%</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 text-center border-y py-3">
+                            <div>
+                                <p class="text-xl font-bold text-sadaku-dark">12</p>
+                                <p class="text-sm text-gray-500">Donatur</p>
+                            </div>
+                            <div>
+                                <p class="text-xl font-bold text-sadaku-dark">49</p>
+                                <p class="text-sm text-gray-500">Hari Lagi</p>
+                            </div>
+                        </div>
+                        
+                        <div id="action-buttons" class="mt-6 space-y-3">
+                             <a id="support-button" href="login.html" class="w-full block text-center bg-sadaku-orange hover:bg-sadaku-orange-dark text-white font-bold py-3.5 px-6 rounded-lg shadow-md transition-all duration-300">
+                                Dukung Kegiatan Ini
+                            </a>
+                             <a id="contact-button" href="login.html" class="w-full block text-center bg-gray-200 hover:bg-gray-300 text-sadaku-dark font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                                Hubungi Penyelenggara
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Donors Card -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="font-poppins font-bold text-lg text-sadaku-dark mb-4">Para Pahlawan Kebaikan (Donatur)</h3>
+                        <div class="space-y-4">
+                            <!-- REVISI: Tautan ditambahkan untuk setiap donatur -->
+                            <a href="profile.html?type=sponsor" class="flex items-center group">
+                                <img src="https://placehold.co/40x40/1A2E35/FFFFFF?text=C" alt="[Logo PT CPI]" class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <p class="font-semibold text-gray-800 text-sm group-hover:text-sadaku-orange transition">PT CPI Racing Drift</p>
+                                    <p class="text-xs text-gray-500">Mendonasi 2 jam yang lalu</p>
+                                </div>
+                            </a>
+                            <a href="profile.html?type=sponsor" class="flex items-center group">
+                                <img src="https://placehold.co/40x40/7C3AED/FFFFFF?text=H" alt="[Logo Hamba Allah]" class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <p class="font-semibold text-gray-800 text-sm group-hover:text-sadaku-orange transition">Hamba Allah</p>
+                                    <p class="text-xs text-gray-500">Mendonasi 1 hari yang lalu</p>
+                                </div>
+                            </a>
+                            <a href="profile.html?type=sponsor" class="flex items-center group">
+                                <img src="https://placehold.co/40x40/F59E0B/FFFFFF?text=B" alt="[Logo PT Berkah]" class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <p class="font-semibold text-gray-800 text-sm group-hover:text-sadaku-orange transition">PT Berkah Jaya</p>
+                                    <p class="text-xs text-gray-500">Mendonasi 3 hari yang lalu</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- State Simulation ---
+            let isLoggedIn = false;
+
+            // --- Element Selectors ---
+            const loginToggle = document.getElementById('login-toggle');
+            const headerGuest = document.getElementById('header-right-guest');
+            const headerUser = document.getElementById('header-right-user');
+            const supportButton = document.getElementById('support-button');
+            const contactButton = document.getElementById('contact-button');
+            const tabButtonsContainer = document.getElementById('tab-buttons');
+            const tabContentsContainer = document.getElementById('tab-contents');
+
+            // --- UI Update Function ---
+            const updateUI = () => {
+                if (isLoggedIn) {
+                    headerGuest.classList.add('hidden');
+                    headerUser.classList.remove('hidden');
+                    supportButton.href = 'donation-packages.html';
+                    contactButton.href = 'messages.html';
+                } else {
+                    headerGuest.classList.remove('hidden');
+                    headerUser.classList.add('hidden');
+                    supportButton.href = 'login.html';
+                    contactButton.href = 'login.html';
+                }
+            };
+            
+            // --- Event Listeners ---
+            loginToggle.addEventListener('change', () => {
+                isLoggedIn = loginToggle.checked;
+                updateUI();
+            });
+            
+            document.getElementById('logout-button').addEventListener('click', () => {
+                 loginToggle.checked = false;
+                 isLoggedIn = false;
+                 updateUI();
+            });
+            
+            // --- Tab logic ---
+            tabButtonsContainer.addEventListener('click', (e) => {
+                const clickedButton = e.target.closest('.tab-btn');
+                if (!clickedButton) return;
+
+                tabButtonsContainer.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                tabContentsContainer.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+                clickedButton.classList.add('active');
+                
+                const tabId = clickedButton.dataset.tab;
+                const contentEl = document.getElementById(`${tabId}-content`);
+                
+                if (tabId === 'deskripsi') {
+                    contentEl.innerHTML = `
+                        <p>Selamat datang di Tech Fest 2025, acara tahunan terbesar yang diselenggarakan oleh Himpunan Mahasiswa Teknologi Informasi. Tahun ini, kami mengusung tema "Innovate-a-thon", sebuah wadah bagi para mahasiswa untuk berkolaborasi, berinovasi, dan menciptakan solusi teknologi yang nyata bagi permasalahan di sekitar kita.</p>
+                        <h3>Tujuan Acara</h3>
+                        <p>Tujuan utama kami adalah untuk menumbuhkan ekosistem inovasi di kalangan mahasiswa, menjembatani antara dunia akademik dan industri, serta memberikan pengalaman praktis yang berharga. Acara ini akan terdiri dari tiga pilar utama:</p>
+                        <ul>
+                            <li><strong>Kompetisi Coding (Hackathon):</strong> Peserta akan ditantang untuk membangun prototipe aplikasi dalam 24 jam.</li>
+                            <li><strong>Workshop Teknologi:</strong> Sesi mendalam tentang AI, Machine Learning, dan UI/UX Design oleh para pakar industri.</li>
+                            <li><strong>Pameran Startup Mahasiswa:</strong> Kesempatan bagi tim mahasiswa untuk memamerkan proyek dan ide bisnis mereka kepada investor dan publik.</li>
+                        </ul>
+                        <h3>Mengapa Dukungan Anda Penting?</h3>
+                        <p>Dengan mendukung Tech Fest 2025, Anda tidak hanya berinvestasi pada sebuah acara, tetapi juga pada masa depan generasi penerus bangsa. Dana yang terkumpul akan digunakan untuk menyediakan fasilitas terbaik, mendatangkan pembicara berkualitas, dan memberikan hadiah yang memotivasi bagi para pemenang.</p>
+                    `;
+                } else if (tabId === 'anggaran') {
+                    contentEl.innerHTML = `
+                        <p>Transparansi adalah kunci dari kepercayaan. Berikut adalah rincian alokasi dana yang kami butuhkan untuk menyukseskan acara ini. Seluruh penggunaan dana akan dilaporkan secara berkala kepada para donatur.</p>
+                        <ul class="list-none space-y-3 mt-4">
+                            <li class="flex justify-between border-b pb-2"><span class="font-medium">Sewa Venue & Perlengkapan</span> <strong>Rp 3.000.000</strong></li>
+                            <li class="flex justify-between border-b pb-2"><span class="font-medium">Honorarium Pembicara & Juri</span> <strong>Rp 2.500.000</strong></li>
+                            <li class="flex justify-between border-b pb-2"><span class="font-medium">Konsumsi Peserta & Panitia</span> <strong>Rp 2.000.000</strong></li>
+                            <li class="flex justify-between border-b pb-2"><span class="font-medium">Hadiah Pemenang Kompetisi</span> <strong>Rp 1.500.000</strong></li>
+                            <li class="flex justify-between border-b pb-2"><span class="font-medium">Publikasi, Promosi & Merchandise</span> <strong>Rp 1.000.000</strong></li>
+                            <li class="flex justify-between pt-3 text-lg text-sadaku-dark"><span class="font-bold">TOTAL KEBUTUHAN DANA</span> <strong class="font-extrabold text-sadaku-orange">Rp 10.000.000</strong></li>
+                        </ul>
+                    `;
+                } else if (tabId === 'penyelenggara') {
+                    contentEl.innerHTML = `
+                        <div class="flex items-start gap-5">
+                            <img src="https://placehold.co/80x80/3B82F6/FFFFFF?text=HMTI" class="w-20 h-20 rounded-full object-cover" alt="[Logo HMTI]">
+                            <div>
+                                <h3 class="mt-0 mb-1">Himpunan Mahasiswa Teknologi Informasi</h3>
+                                <div class="flex items-center text-sm text-green-600 font-semibold mb-2">
+                                    <i class="fas fa-check-circle mr-2"></i> Organisasi Terverifikasi
+                                </div>
+                                <p>Kami adalah organisasi mahasiswa resmi di bawah naungan Cyber University yang berfokus pada pengembangan ilmu dan inovasi di bidang teknologi. Dengan rekam jejak menyelenggarakan lebih dari 10 event sukses, kami berkomitmen pada profesionalisme dan akuntabilitas.</p>
+                                <!-- REVISI: Tautan diubah ke profile.html dengan parameter -->
+                                <a href="profile.html?type=mahasiswa" class="text-sadaku-orange font-semibold hover:underline mt-2 inline-block">Lihat Profil Organisasi &rarr;</a>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                contentEl.classList.add('active');
+            });
+            
+            // Fill initial content for active tab
+            document.querySelector('.tab-btn.active').click();
+
+            // Initial UI Setup
+            updateUI();
+        });
+    </script>
+</body>
+</html>
